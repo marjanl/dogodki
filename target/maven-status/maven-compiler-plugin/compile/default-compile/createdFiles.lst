@@ -1,0 +1,6 @@
+si/hse/varnost/controllers/VarnostnikController.class
+si/hse/varnost/model/Varnostnik.class
+si/hse/varnost/model/Varnostnik_.class
+si/hse/varnost/model/Varnostnik_.java
+si/hse/varnost/ejb/VarnostnikEjb.class
+si/hse/varnost/ejb/Tools.class

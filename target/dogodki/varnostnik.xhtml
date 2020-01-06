@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<h:outputStylesheet library="css" name="table-style.css" />
+</h:head>
+<h:body>
+
+	<h1>Uredi varnostnike</h1>
+	<h:form id="form1">
+		<h:dataTable value="#{varCtrl.list}" var="o" styleClass="order-table"
+			headerClass="order-table-header"
+			rowClasses="order-table-odd-row,order-table-even-row">
+			<h:column>
+				<f:facet name="header">ime</f:facet>
+    				#{o.ime}
+    			</h:column>
+			<f:facet name="footer">
+				<h:commandButton value="uredi" action="#{varCtrl.uredi(o)}" />
+			</f:facet>
+		</h:dataTable>
+		<p:commandButton value="dodaj novega" id="nonAjax"
+			action="#{varCtrl.createNewVarnostnik}" style="margin-right:20px;"
+			ajax="false" update="newVarnostnik" />
+	</h:form>
+	<h:form id="newVarnostnik">
+		<h:panelGroup rendered="#{varCtrl.selected != null}" style="width: 110px;">
+			<label>Ime:</label>
+			<p:inputText id="imeInput" 
+				placeholder="Ime"
+				requiredMessage="Ime je obvezno"
+				value="#{varCtrl.selected.ime}" maxlength="30">
+				<!-- TODO add inn pattern  -->
+				<p:ajax event="blur" process="@form" update="@form" />
+				<p:ajax event="change" process="@form" update="@form" />
+			</p:inputText>
+			<p:message for="imeInput" />
+		</h:panelGroup>
+		<p:commandButton value="shrani" action="#{varCtrl.save}" update="@form form1"/>
+		<p:commandButton value="prekliči" action="#{varCtrl.cancel}" update="@form form1"/>
+		
+	</h:form>
+</h:body>
+</html>

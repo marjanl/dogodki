@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	template="/WEB-INF/templates/template.xhtml">
+	<ui:define name="content">
+		<h1>Courses</h1>
+            <h:form>
+		<h:dataTable value="#{demoCourseList}" var="v_course" style="font-size : 90%" styleClass="dataTable" rowClasses="odd,even"> 
+			<h:column>
+				<f:facet name="header">Id
+				</f:facet>
+				#{v_course.id}
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">Code
+				</f:facet>
+				#{v_course.code}
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">Title
+				</f:facet>
+				#{v_course.title}
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">Teacher
+				</f:facet>
+				#{v_course.teacher.name}
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">Student Count
+				</f:facet>
+				#{fn:length(v_course.students)}
+			</h:column>
+		</h:dataTable>
+            </h:form>
+
+
+	</ui:define>
+</ui:composition>
