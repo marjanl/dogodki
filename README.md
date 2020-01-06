@@ -1,0 +1,1 @@
+# vnos dogodkov za Igorja
