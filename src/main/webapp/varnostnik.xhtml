@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<html 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -24,9 +24,14 @@
 				<h:commandButton value="uredi" action="#{varCtrl.uredi(o)}" />
 			</f:facet>
 		</h:dataTable>
-		<p:commandButton value="dodaj novega" id="nonAjax"
-			action="#{varCtrl.createNewVarnostnik}" style="margin-right:20px;"
-			ajax="false" update="newVarnostnik" />
+		<h:commandButton value="dodaj novega" action="#{varCtrl.createNewVarnostnik()}" update="@form newVarnostnik"/> 
+				<h:commandButton
+											value="prekliči"
+											title="prekliči"
+											styleClass="btn-cta btn-cta-icon"
+											icon="fa fa-plus"
+											action="#{varCtrl.cancel}"
+											update="@form form1"/>
 	</h:form>
 	<h:form id="newVarnostnik">
 		<h:panelGroup rendered="#{varCtrl.selected != null}" style="width: 110px;">
@@ -41,8 +46,14 @@
 			</p:inputText>
 			<p:message for="imeInput" />
 		</h:panelGroup>
-		<p:commandButton value="shrani" action="#{varCtrl.save}" update="@form form1"/>
-		<p:commandButton value="prekliči" action="#{varCtrl.cancel}" update="@form form1"/>
+		<h:commandButton value="shrani" action="#{varCtrl.save()}" update="@form form1"/>
+		<h:commandButton
+											value="prekliči"
+											title="prekliči"
+											styleClass="btn-cta btn-cta-icon"
+											icon="fa fa-plus"
+											action="#{varCtrl.cancel}"
+											update="@form form1"/>
 		
 	</h:form>
 </h:body>
