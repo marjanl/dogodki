@@ -11,47 +11,61 @@
 </h:head>
 <h:body>
 
+
+	<p:dialog id="dialogVarnostnik" header="Varnostnik"
+		widgetVar="dialogVarnostnik" modal="true" showEffect="fade"
+		hideEffect="fade" position="top center" resizable="false"
+		style="position:fixed; z-index: 9999;" closeOnEscape="true"
+		closable="true" height="150px" width="350px">
+		<h:form id="varnostnikEditForm">
+			<h:panelGroup rendered="#{varCtrl.selected != null}"
+				style="width: 110px;">
+				<label>Ime:</label>
+				<p:inputText id="imeInput" placeholder="Ime" required="true"
+					requiredMessage="Ime je obvezno" value="#{varCtrl.selected.ime}"
+					maxlength="30">
+				</p:inputText>
+				<p:message for="imeInput" />
+
+				<h:commandButton value="shrani" action="#{varCtrl.save}"
+					oncomplete="PF('dialogVarnostnik').hide()"
+					update=":varnostnikForm" process="@form" />
+				<h:commandButton value="prekliči" title="prekliči"
+					styleClass="btn-cta btn-cta-icon" icon="fa fa-plus"
+					action="#{varCtrl.cancel}" onclick="PF('dialogVarnostnik').hide();" />
+			</h:panelGroup>
+		</h:form>
+	</p:dialog>
+
+
 	<h1>Uredi varnostnike</h1>
 	<h:panelGroup id="mainPanel">
-	<h:form id="form1">
-		<p:growl id="varnostnikGrowl" showDetail="true" sticky="true"/>
-		<h:dataTable value="#{varCtrl.list}" var="o" styleClass="order-table"
-			headerClass="order-table-header"
-			rowClasses="order-table-odd-row,order-table-even-row">
-			<h:column>
-				<f:facet name="header">ime</f:facet>
-    				#{o.ime}
-    			</h:column>
-			<f:facet name="footer">
-				<h:commandButton value="uredi" action="#{varCtrl.uredi(o)}" />
-			</f:facet>
-		</h:dataTable>
-		<h:commandButton value="dodaj novega"
-			action="#{varCtrl.createNewVarnostnik()}"
-			update="@form newVarnostnik" />
-		<h:commandButton value="prekliči" title="prekliči"
-			styleClass="btn-cta btn-cta-icon" icon="fa fa-plus"
-			action="#{varCtrl.cancel}" update="@form :form1" />
-	</h:form>
+		<h:form id="varnostnikForm">
+			<p:growl id="varnostnikGrowl" showDetail="true" sticky="true" />
+
+			<p:dataTable id="varnostnikiDT" var="o" value="#{varCtrl.list}"
+				editable="true" rowIndexVar="varDt"
+				styleClass="kaz-data-table docDetailDT kaz-edit-table">
+				<p:column headerText="id" styleClass="width-40">
+					<h:outputText value="#{o.id}" />
+				</p:column>
+				<p:column headerText="ime" styleClass="width-40">
+					<h:outputText value="#{o.ime}" />
+				</p:column>
+				<p:column>
+					<p:commandButton id="editVarnostnikButton" title="uredi"
+						styleClass="btn-cta btn-cta-icon" icon="fa fa-search"
+						action="#{varCtrl.uredi(o)}" process="@this"
+						onclick="PF('dialogVarnostnik').show();" 
+						update=":varnostnikEditForm" />
+				</p:column>
+			</p:dataTable>
+			<p:commandButton value="dodaj novega"
+				action="#{varCtrl.createNewVarnostnik}"
+				onclick="PF('dialogVarnostnik').show();" 
+				update=":varnostnikEditForm"/>
+		</h:form>
 	</h:panelGroup>
 
-	<h:form id="newVarnostnik">
-		<h:panelGroup rendered="#{varCtrl.selected != null}"
-			style="width: 110px;">
-			<label>Ime:</label>
-			<p:inputText id="imeInput" placeholder="Ime"
-				required="true"
-				requiredMessage="Ime je obvezno" value="#{varCtrl.selected.ime}"
-				maxlength="30">
-			</p:inputText>
-			<p:message for="imeInput" />
-
-			<h:commandButton value="shrani" action="#{varCtrl.save}"
-				update=":form1 @form " />
-			<h:commandButton value="prekliči" title="prekliči"
-				styleClass="btn-cta btn-cta-icon" icon="fa fa-plus"
-				action="#{varCtrl.cancel}" update="@form" />
-		</h:panelGroup>
-	</h:form>
 </h:body>
 </html>
