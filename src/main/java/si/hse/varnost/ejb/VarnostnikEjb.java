@@ -9,9 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
-
 import si.hse.varnost.model.Varnostnik;
-
 
 @Stateless
 @Transactional(Transactional.TxType.REQUIRES_NEW)
@@ -21,21 +19,34 @@ public class VarnostnikEjb {
 	private EntityManager em;
 	@Inject
 	private Tools tools;
-	
+
 	@SuppressWarnings("unchecked")
 	public List<Varnostnik> findAll() {
 		EntityManager em = tools.getEntityManager();
-		
+
 		List<Varnostnik> results = new ArrayList<Varnostnik>();
 		try {
 			results = em.createQuery("SELECT v FROM Varnostnik v").getResultList();
 		} catch (Exception e) {
-			System.err.println("Exception pri VarnostnikEjb:"+e.getLocalizedMessage());
+			System.err.println("Exception pri VarnostnikEjb:" + e.getLocalizedMessage());
 			e.printStackTrace();
 		} finally {
 			em.close();
 		}
-		
+
 		return results;
+	}
+
+	public Varnostnik mergeVarnostnik(Varnostnik selected) throws Exception {
+		EntityManager em = tools.getEntityManager();
+		try {
+			return em.merge(selected);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			em.close();
+		}
+
 	}
 }

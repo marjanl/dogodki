@@ -5,6 +5,9 @@
   <persistence-unit name="pu_hse" transaction-type="JTA">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <jta-data-source>java:/hseDS</jta-data-source>
+    
+    <class>si.hse.varnost.model.Varnostnik</class>
+    <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jtaDataSource" 
           value="java:/hseDS" />

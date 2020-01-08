@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -25,7 +27,16 @@ public class VarnostnikController implements Serializable {
 	}
 	
 	public void save() {
-		
+		try {
+			if(ejb.mergeVarnostnik(selected) != null) {
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Varnostnik shranjen", ""));
+			}
+		} catch (Exception e) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Napaka pri shranjevanju", e.getLocalizedMessage()));
+			e.printStackTrace();
+		}finally {
+			cancel();
+		}
 	}
 	
 	public void cancel() {

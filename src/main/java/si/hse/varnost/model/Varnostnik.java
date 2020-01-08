@@ -3,16 +3,20 @@ package si.hse.varnost.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.TableGenerator;
 
 
 @Entity
 @Table(name="varnostnik")
 public class Varnostnik {
+	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(generator="sqlite")
+	@TableGenerator(name="sqlite", table="sqlite_sequence",
+	    pkColumnName="name", valueColumnName="seq",
+	    pkColumnValue="varnostnik")
 	private Long id;
 	
 	@Column(length = 100, nullable = false)
