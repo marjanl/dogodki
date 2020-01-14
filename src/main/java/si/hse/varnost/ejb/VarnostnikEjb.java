@@ -49,4 +49,19 @@ public class VarnostnikEjb {
 		}
 
 	}
+	
+	public void deleteVarnostnik(Varnostnik v) throws Exception {
+		EntityManager em = tools.getEntityManager();
+		try {
+			Varnostnik varnostnik = em.merge(v);
+			em.remove(varnostnik);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			em.close();
+		}
+	}
+	
+	
 }

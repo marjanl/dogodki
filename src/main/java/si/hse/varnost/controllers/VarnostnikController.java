@@ -57,7 +57,16 @@ public class VarnostnikController implements Serializable {
 	}
 	
 	public void delete(Varnostnik v) {
-		//v.
+		try {
+			ejb.deleteVarnostnik(v);
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Varnostnik izbrisan", ""));
+		} catch (Exception e) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Napaka pri brisanju", e.getLocalizedMessage()));
+			e.printStackTrace();
+		}finally {
+			cancel();
+			readAll();
+		}
 	}
 	
 	public List<Varnostnik> getList() {
