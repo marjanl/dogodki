@@ -56,6 +56,10 @@ public class VarnostnikController implements Serializable {
 		selected=v;
 	}
 	
+	public void delete(Varnostnik v) {
+		//v.
+	}
+	
 	public List<Varnostnik> getList() {
 		return list;
 	}

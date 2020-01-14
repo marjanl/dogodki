@@ -9,6 +9,8 @@
 <h:head>
 	<f:facet name="first">
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<link href="./resources/css/screen.css" rel="stylesheet" type="text/css" />
+    
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 	</f:facet>
@@ -16,20 +18,26 @@
 	<title>Dogodki - urejanje</title>
 
 </h:head>
-<div class="layout-wrapper menu-layout-static">
-	<p:growl autoUpdate="true" />
-	<h3>Uredi</h3>
-	<p:menu>
-		<p:menuitem value="Uredi varnostnike" url="varnostnik.xhtml"
-			icon="ui-icon-person" />
-		<p:menuitem value="Tag Management" url="menu.jsf" icon="tag-icon" />
-	</p:menu>
 
-	<div class="layout-main">
-		<ui:insert name="content" />
+
+<h:body>
+	<div>
+		<div id="left" class="layout-left body">
+			<ui:insert name="left">
+				<h3>Urejanje</h3>
+				<p:menu>
+					<p:menuitem value="Uredi varnostnike" url="varnostnik.xhtml"
+						icon="ui-icon-person" />
+					<p:menuitem value="Tag Management" url="menu.jsf" icon="tag-icon" />
+				</p:menu>
+			</ui:insert>
+
+		</div>
+		<div id="content" class="layout-content">
+			<ui:insert name="content">Main Content</ui:insert>
+		</div>
 	</div>
-
-</div>
+</h:body>
 
 
 </html>
