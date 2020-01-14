@@ -17,14 +17,18 @@
 
 </h:head>
 <div class="layout-wrapper menu-layout-static">
-	<!-- <ui:include src="./topbar.xhtml" /> -->
-	<ui:include src="./menu.xhtml" />
+	<p:growl autoUpdate="true" />
+	<h3>Uredi</h3>
+	<p:menu>
+		<p:menuitem value="Uredi varnostnike" url="varnostnik.xhtml"
+			icon="ui-icon-person" />
+		<p:menuitem value="Tag Management" url="menu.jsf" icon="tag-icon" />
+	</p:menu>
 
 	<div class="layout-main">
 		<ui:insert name="content" />
 	</div>
 
-	<!-- <ui:include src="./footer.xhtml" /> -->
 </div>
 
 
