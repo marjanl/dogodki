@@ -1,29 +1,31 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<!DOCTYPE html>
+<html lang="en" class="app" xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
-<h:head>
-	<title>${project.artifactId} Application</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<h:outputStylesheet name="css/screen.css" />
-</h:head>
-<h:body>
-	<h:panelGroup id="page" layout="block">
-		<h:panelGroup id="header" layout="block">
-			<h1><a href="home.jsf">dogodki</a></h1>
-			<small>#{dataStatus}</small>
-		</h:panelGroup>
-		<h:panelGroup id="container" layout="block">
-			<h:panelGroup id="sidebar" layout="block">			
-			<h1>Sidebar</h1> Content for the sidebar goes here
-			</h:panelGroup>
-			<h:panelGroup id="content" layout="block">
-				<ui:insert name="content">Main Content</ui:insert>
-			</h:panelGroup>
-		</h:panelGroup>
-		<h:panelGroup id="footer" layout="block">#{messages.footerText}<br/>Generated using the Knappsack Java EE Maven Archetypes from <a href="http://www.AndyGibson.net">www.AndyGibson.net</a></h:panelGroup>
-	</h:panelGroup>
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
 
-</h:body>
+<h:head>
+	<f:facet name="first">
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+	</f:facet>
+
+	<title>Dogodki - urejanje</title>
+
+</h:head>
+<div class="layout-wrapper menu-layout-static">
+	<!-- <ui:include src="./topbar.xhtml" /> -->
+	<ui:include src="./menu.xhtml" />
+
+	<div class="layout-main">
+		<ui:insert name="content" />
+	</div>
+
+	<!-- <ui:include src="./footer.xhtml" /> -->
+</div>
+
+
 </html>

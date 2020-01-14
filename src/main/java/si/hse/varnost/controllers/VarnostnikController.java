@@ -36,6 +36,7 @@ public class VarnostnikController implements Serializable {
 			e.printStackTrace();
 		}finally {
 			cancel();
+			readAll();
 		}
 	}
 	
