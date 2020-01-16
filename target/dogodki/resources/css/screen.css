@@ -34,6 +34,14 @@ body {
 	border-bottom: solid 2px #a0a0a0;
 }
 
+.layout-left{float:left; width:250px; padding:5px;}
+.layout-content{overflow:hidden; position:relative; padding:5px 10px;}
+body{color:#000;background-color:#EEE;font-family: Verdana, Arial, Helvetica, "DejaVu Sans", sans-serif;font-size:100%;line-height:1.5;}
+
+.fa {
+    font-size: 12px;
+}
+
 #sidebar {
 	float: right;
 	width: 200px;	

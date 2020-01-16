@@ -7,6 +7,8 @@
     <jta-data-source>java:/hseDS</jta-data-source>
     
     <class>si.hse.varnost.model.Varnostnik</class>
+    <class>si.hse.varnost.model.Izmenovodja</class>
+    <class>si.hse.varnost.model.Ostalo</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jtaDataSource" 

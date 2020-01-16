@@ -1,0 +1,79 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:astana="http://java.sun.com/jsf/composite/astana"
+	template="/WEB-INF/templates/template.xhtml">
+
+	<ui:define name="title">
+        Uredi ostale podatke
+    </ui:define>
+
+	<ui:define name="content">
+
+		<p:dialog id="dialogOstalo" header="Ostali podatki"
+			widgetVar="dialogOstalo" modal="true" showEffect="fade"
+			hideEffect="fade" position="top center" resizable="false"
+			style="position:fixed; z-index: 9999;" closeOnEscape="true"
+			closable="true" height="250px" width="350px">
+			<h:form id="ostaloEditForm">
+				<h:panelGroup rendered="#{ostaloCtrl.selected != null}"
+					style="width: 110px;">
+					<label>Opis:</label>
+					<p:inputText id="imeInput" placeholder="Opis" required="true"
+						requiredMessage="Opis je obvezen"
+						value="#{ostaloCtrl.selected.opis}" maxlength="100">
+					</p:inputText>
+					<p:message for="imeInput" />
+					<label>Vrsta:</label><br />
+					<h:selectOneMenu value="#{ostaloCtrl.selected.vrsta}">
+						<f:selectItems value="#{ostaloCtrl.vrsta}" var="v"
+							itemValue="#{v.lepoIme}"
+							itemLabel="#{v.lepoIme}" />
+					</h:selectOneMenu><br /><br />
+
+					<p:commandButton value="shrani" action="#{ostaloCtrl.save}"
+						oncomplete="PF('dialogOstalo').hide()"
+						update=":ostaloForm:ostaloDT" process="@form" />
+					<p:commandButton value="prekliči" title="prekliči"
+						styleClass="btn-cta btn-cta-icon" icon="fa fa-plus"
+						action="#{ostaloCtrl.cancel}" onclick="PF('dialogOstalo').hide();" />
+				</h:panelGroup>
+			</h:form>
+		</p:dialog>
+
+
+		<h1>Uredi ostale podatke</h1>
+
+		<h:form id="ostaloForm">
+			<p:growl id="ostaloGrowl" showDetail="true" sticky="true" />
+
+			<p:dataTable id="ostaloDT" var="o" value="#{ostaloCtrl.list}"
+				editable="true" rowIndexVar="varDt">
+				<p:column headerText="opis">
+					<h:outputText value="#{o.opis}" />
+				</p:column>
+				<p:column headerText="vrsta">
+					<h:outputText value="#{o.vrsta.lepoIme}" />
+				</p:column>
+				<p:column headerText="uredi">
+					<div style="font-size: 1rem;">
+						<p:commandButton title="uredi" icon="fa fa-search "
+							action="#{ostaloCtrl.uredi(o)}" process="@this"
+							oncomplete="PF('dialogOstalo').show();" update=":ostaloEditForm" />
+					</div>
+				</p:column>
+				<p:column headerText="izbriši">
+					<div style="font-size: 1rem;">
+						<p:commandButton title="izbriši" icon="fa fa-trash"
+							action="#{ostaloCtrl.delete(o)}" process="@this" update="@form" />
+					</div>
+				</p:column>
+			</p:dataTable>
+			<p:commandButton value="dodaj nov podatek"
+				action="#{ostaloCtrl.createNewOstalo}"
+				onclick="PF('dialogOstalo').show();" update=":ostaloEditForm" />
+		</h:form>
+	</ui:define>
+</ui:composition>

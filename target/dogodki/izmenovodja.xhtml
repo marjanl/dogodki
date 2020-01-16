@@ -1,0 +1,75 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:astana="http://java.sun.com/jsf/composite/astana"
+	template="/WEB-INF/templates/template.xhtml">
+
+	<ui:define name="title">
+        Uredi izmenovodje
+    </ui:define>
+
+	<ui:define name="content">
+
+		<p:dialog id="dialogIzmenovodja" header="Izmenovodja"
+			widgetVar="dialogIzmenovodja" modal="true" showEffect="fade"
+			hideEffect="fade" position="top center" resizable="false"
+			style="position:fixed; z-index: 9999;" closeOnEscape="true"
+			closable="true" height="150px" width="350px">
+			<h:form id="izmenovodjaEditForm">
+				<h:panelGroup rendered="#{izmenovodjaCtrl.selected != null}"
+					style="width: 110px;">
+					<label>Ime:</label>
+					<p:inputText id="imeInput" placeholder="Ime" required="true"
+						requiredMessage="Ime je obvezno" value="#{izmenovodjaCtrl.selected.ime}"
+						maxlength="30">
+					</p:inputText>
+					<p:message for="imeInput" />
+
+					<p:commandButton value="shrani" action="#{izmenovodjaCtrl.save}"
+						oncomplete="PF('dialogIzmenovodja').hide()"
+						update=":izmenovodjaForm:izmenovodjaDT" process="@form" />
+					<p:commandButton value="prekliči" title="prekliči"
+						styleClass="btn-cta btn-cta-icon" icon="fa fa-plus"
+						action="#{izmenovodjaCtrl.cancel}"
+						onclick="PF('dialogIzmenovodja').hide();" />
+				</h:panelGroup>
+			</h:form>
+		</p:dialog>
+
+
+		<h1>Uredi izmenovodje</h1>
+
+		<h:form id="izmenovodjaForm">
+			<p:growl id="izmenovodjaGrowl" showDetail="true" sticky="true" />
+
+			<p:dataTable id="izmenovodjaDT" var="o" value="#{izmenovodjaCtrl.list}"
+				editable="true" rowIndexVar="varDt">
+				<p:column headerText="ime" styleClass="width-40">
+					<h:outputText value="#{o.ime}" />
+				</p:column>
+				<p:column headerText="uredi">
+					<div style="font-size: 1rem;">
+						<p:commandButton id="editIzmenovodjaButton" title="uredi"
+							icon="fa fa-search " action="#{izmenovodjaCtrl.uredi(o)}" process="@this"
+							onclick="PF('dialogIzmenovodja').show();"
+							update=":izmenovodjaEditForm" />
+					</div>
+				</p:column>
+				<p:column headerText="izbriši">
+					<div style="font-size: 1rem;">
+						<p:commandButton id="deleteIzmenovodjaButton" title="izbriši"
+							icon="fa fa-trash" action="#{izmenovodjaCtrl.delete(o)}"
+							process="@this"
+							update="@form" />
+					</div>
+				</p:column>
+			</p:dataTable>
+			<p:commandButton value="dodaj novega"
+				action="#{izmmenovodjaCtrl.createNewIzmenovodja}"
+				onclick="PF('dialogIzmenovodja').show();"
+				update=":izmenovodjaEditForm" />
+		</h:form>
+	</ui:define>
+</ui:composition>

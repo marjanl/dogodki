@@ -1,6 +1,15 @@
-si/hse/varnost/controllers/VarnostnikController.class
 si/hse/varnost/model/Varnostnik.class
+si/hse/varnost/model/Izmenovodja_.java
+si/hse/varnost/model/Ostalo_.java
 si/hse/varnost/model/Varnostnik_.class
 si/hse/varnost/model/Varnostnik_.java
+si/hse/varnost/controllers/IzmenovodjaController.class
+si/hse/varnost/model/Vrsta.class
+si/hse/varnost/model/Ostalo.class
+si/hse/varnost/controllers/VarnostnikController.class
+si/hse/varnost/model/Izmenovodja_.class
+si/hse/varnost/ejb/IzmenovodjaEjb.class
 si/hse/varnost/ejb/VarnostnikEjb.class
+si/hse/varnost/model/Ostalo_.class
 si/hse/varnost/ejb/Tools.class
+si/hse/varnost/model/Izmenovodja.class

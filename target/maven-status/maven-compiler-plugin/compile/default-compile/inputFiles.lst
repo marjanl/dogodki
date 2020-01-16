@@ -1,4 +1,9 @@
+/home/ml/kastor/work/git/Igor/dogodki/src/main/java/si/hse/varnost/model/Izmenovodja.java
+/home/ml/kastor/work/git/Igor/dogodki/src/main/java/si/hse/varnost/model/Ostalo.java
 /home/ml/kastor/work/git/Igor/dogodki/src/main/java/si/hse/varnost/ejb/Tools.java
+/home/ml/kastor/work/git/Igor/dogodki/src/main/java/si/hse/varnost/controllers/IzmenovodjaController.java
+/home/ml/kastor/work/git/Igor/dogodki/src/main/java/si/hse/varnost/ejb/IzmenovodjaEjb.java
 /home/ml/kastor/work/git/Igor/dogodki/src/main/java/si/hse/varnost/ejb/VarnostnikEjb.java
 /home/ml/kastor/work/git/Igor/dogodki/src/main/java/si/hse/varnost/model/Varnostnik.java
 /home/ml/kastor/work/git/Igor/dogodki/src/main/java/si/hse/varnost/controllers/VarnostnikController.java
+/home/ml/kastor/work/git/Igor/dogodki/src/main/java/si/hse/varnost/model/Vrsta.java
