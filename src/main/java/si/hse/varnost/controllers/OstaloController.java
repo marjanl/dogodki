@@ -81,7 +81,7 @@ public class OstaloController  implements Serializable {
 		this.selected = selected;
 	}
 
-	public si.hse.varnost.model.Vrsta[] getVrsta() {
+	public si.hse.varnost.model.Vrsta[] getVrste() {
         return si.hse.varnost.model.Vrsta.values();
     }
 	
