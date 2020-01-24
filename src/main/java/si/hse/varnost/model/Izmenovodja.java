@@ -1,5 +1,7 @@
 package si.hse.varnost.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,12 +11,14 @@ import javax.persistence.TableGenerator;
 
 @Entity
 @Table(name="izmenovodja")
-public class Izmenovodja {
+public class Izmenovodja implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(generator="sqlite")
-	@TableGenerator(name="sqlite", table="sqlite_sequence",
+	@TableGenerator(name="izmenovodjaId", table="sqlite_sequence",
 	    pkColumnName="name", valueColumnName="seq",
-	    pkColumnValue="varnostnik")
+	    pkColumnValue="izmenovodja")
 	private Long id;
 	
 	@Column(length = 100, nullable = false)

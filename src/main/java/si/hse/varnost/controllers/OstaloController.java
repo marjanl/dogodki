@@ -2,6 +2,7 @@ package si.hse.varnost.controllers;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -12,6 +13,7 @@ import javax.inject.Named;
 
 import si.hse.varnost.ejb.OstaloEjb;
 import si.hse.varnost.model.Ostalo;
+import si.hse.varnost.model.Vrsta;
 	
 @ViewScoped
 @Named("ostaloCtrl")
@@ -84,5 +86,23 @@ public class OstaloController  implements Serializable {
 	public si.hse.varnost.model.Vrsta[] getVrste() {
         return si.hse.varnost.model.Vrsta.values();
     }
+	
+	public List<Ostalo> getMesto(){
+		return list.stream().filter(o -> o.getVrsta().equals(Vrsta.MESTO)).collect(Collectors.toList());
+	}
+	
+	public List<Ostalo> getIzmena(){
+		return list.stream().filter(o -> o.getVrsta().equals(Vrsta.IZMENA)).collect(Collectors.toList());
+	}
+	
+	public List<Ostalo> getAktivnost(){
+		return list.stream().filter(o -> o.getVrsta().equals(Vrsta.AKTIVNOST)).collect(Collectors.toList());
+	}
+	
+	public List<Ostalo> getVm(){
+		return list.stream().filter(o -> o.getVrsta().equals(Vrsta.VM)).collect(Collectors.toList());
+	}
+	
+	
 	
 }

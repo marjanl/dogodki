@@ -1,10 +1,10 @@
-body {
+/*body {
 	margin: 0;
 	padding: 0;
 	background-color: #EAECEE;
 	font-family: Verdana, sans-serif;
 	font-size: 10px;
-}
+}*/
 
 #header {
 	height: 120px;
@@ -36,7 +36,13 @@ body {
 
 .layout-left{float:left; width:250px; padding:5px;}
 .layout-content{overflow:hidden; position:relative; padding:5px 10px;}
-body{color:#000;background-color:#EEE;font-family: Verdana, Arial, Helvetica, "DejaVu Sans", sans-serif;font-size:100%;line-height:1.5;}
+body{
+	color:#000;
+	/*background-color:#EEE;*/
+	font-family: Verdana, Arial, Helvetica, "DejaVu Sans", sans-serif;
+	font-size:100%;
+	line-height:1.5;
+}
 
 .fa {
     font-size: 12px;
@@ -128,7 +134,7 @@ body{color:#000;background-color:#EEE;font-family: Verdana, Arial, Helvetica, "D
 }
 
 .value {	
-	margin-right: 8px;
+	font-weight: bold;
 }
 
 .errorMessage {
@@ -138,4 +144,39 @@ body{color:#000;background-color:#EEE;font-family: Verdana, Arial, Helvetica, "D
 
 .property {
 	margin-bottom: 12px;
+}
+
+.column {
+  float: left;
+  width: 33.33%;
+}
+
+.columnLeft {
+  float: left;
+  width: 250px;
+}
+
+.columnCenter{
+  float: left;
+  width: 600px;
+}
+
+.columnRight{
+  float: left;
+  width: 250px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.ui-panelgrid.showcase-text-align-center .ui-grid-responsive .ui-panelgrid-cell {
+	text-align: center;
+}
+ 
+.customPanelGrid .ui-panelgrid-content {
+	align-items: center;
 }
