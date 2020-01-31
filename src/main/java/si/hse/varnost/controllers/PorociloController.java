@@ -1,9 +1,7 @@
 package si.hse.varnost.controllers;
 
 import java.io.Serializable;
-import java.util.List;
 
-import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
@@ -19,12 +17,7 @@ public class PorociloController  implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Inject PorociloEjb ejb;
-	
-	@PostConstruct
-	public void getAll() {
-		List<Porocilo> list = ejb.findAll();
-	}
-	
+		
 	Porocilo selected = new Porocilo();
 
 	public void create() {

@@ -2,11 +2,16 @@ package si.hse.varnost.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
@@ -45,9 +50,9 @@ public class Porocilo implements Serializable {
 	public Porocilo() {}
 	
 	
-	/*@OneToMany(mappedBy = "porocilo", orphanRemoval = true, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "porocilo", orphanRemoval = true, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Set<Aktivnost> aktivnosti = new HashSet<>();
-*/
+
 	public Long getId() {
 		return id;
 	}
@@ -118,13 +123,13 @@ public class Porocilo implements Serializable {
 	}
 
 
-	/*public Set<Aktivnost> getAktivnosti() {
+	public Set<Aktivnost> getAktivnosti() {
 		return aktivnosti;
 	}
 
 
 	public void setAktivnosti(Set<Aktivnost> aktivnosti) {
 		this.aktivnosti = aktivnosti;
-	}*/
+	}
 	
 }
