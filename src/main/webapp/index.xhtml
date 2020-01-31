@@ -25,7 +25,85 @@
 
 </h:head>
 <h:body>
-	<h1></h1>
+
+	<p:dialog id="dialogAktivnost" header="Dodaj aktivnost"
+		widgetVar="dialogAktivnost" modal="true" showEffect="fade"
+		hideEffect="fade" position="top center" resizable="true"
+		style="position:fixed; z-index: 9999;" closeOnEscape="true"
+		closable="true" height="480px" width="500px">
+		<h:form id="aktivnostEditForm">
+			<h:panelGroup rendered="#{porociloCtrl.selected != null}"
+				style="width: 110px;">
+				<p:panelGrid columns="2">
+					<label>Aktivnost:</label>
+					<h:panelGroup>
+						<p:selectOneMenu id="inputAktivnost"
+							value="#{porociloCtrl.aktivnost}" required="true"
+							requiredMessage="Izberi aktivnost">
+							<f:selectItem itemLabel="" noSelectionOption="true"
+								itemDisabled="true" />
+							<f:selectItems value="#{ostaloCtrl.aktivnost}" var="v"
+								itemValue="#{v.opis}" itemLabel="#{v.opis}" />
+						</p:selectOneMenu>
+						<p:message for="inputAktivnost" />
+					</h:panelGroup>
+				</p:panelGrid>
+
+				<p:panelGrid columns="2">
+					<label>Čas izvedbe aktivnosti od:</label>
+					<h:panelGroup>
+						<p:calendar id="inputDatumOd" value="#{porociloCtrl.datumOd}"
+							readOnlyInputText="true" required="true"
+							requiredMessage="vnesi od" navigator="true"
+							pattern="dd.MM.yyyy HH:mm:ss" locale="sl" />
+						<p:message for="inputDatumOd" />
+					</h:panelGroup>
+					<label>do:</label>
+					<h:panelGroup>
+						<p:calendar id="inputDatumDo" value="#{porociloCtrl.datumDo}"
+							readOnlyInputText="true" required="true"
+							requiredMessage="vnesi od" navigator="true"
+							pattern="dd.MM.yyyy HH:mm:ss" locale="sl" />
+						<p:message for="inputDatumDo" />
+					</h:panelGroup>
+				</p:panelGrid>
+
+				<p:panelGrid columns="2">
+					<label>Mesto dogodka:</label>
+					<h:panelGroup>
+						<p:selectOneMenu id="inputMestoDogodka"
+							value="#{porociloCtrl.mestoDogodka}" required="true"
+							requiredMessage="Izberi mesto dogodka">
+							<f:selectItem itemLabel="" noSelectionOption="true"
+								itemDisabled="true" />
+							<f:selectItems value="#{ostaloCtrl.mesto}" var="v"
+								itemValue="#{v.opis}" itemLabel="#{v.opis}" />
+						</p:selectOneMenu>
+						<p:message for="inputMestoDogodka" />
+					</h:panelGroup>
+				</p:panelGrid>
+
+				<p:panelGrid columns="1">
+					<label>Zaznamek:</label>
+					<p:inputTextarea value="#{porociloCtrl.zaznamek}" rows="6"
+						cols="33" />
+				</p:panelGrid>
+				<p:panelGrid columns="2">
+					<p:commandButton value="shrani"
+						action="#{porociloCtrl.addAktivnost()}"
+						oncomplete="PF('dialogAktivnost').hide()" update=""
+						process="@form" />
+					<p:commandButton value="prekliči" title="prekliči"
+						styleClass="btn-cta btn-cta-icon" icon="fa fa-plus"
+						action="#{porociloCtrl.cancelAktivnost}"
+						onclick="PF('dialogAktivnost').hide();" />
+				</p:panelGrid>
+
+			</h:panelGroup>
+		</h:form>
+	</p:dialog>
+
+
 	<div class="row">
 		<div class="columnLeft">
 			<div class="row">
@@ -49,8 +127,7 @@
 						<h:panelGroup>
 							<p:calendar id="inputStartDate" binding="#{startDate}"
 								value="#{porociloCtrl.selected.datum}" pattern="dd.MM.yyyy"
-								required="true" requiredMessage="izberi datum"
-								locale="sl" />
+								required="true" requiredMessage="izberi datum" locale="sl" />
 							<p:message for="inputStartDate" />
 						</h:panelGroup>
 
@@ -109,16 +186,17 @@
 						</h:panelGroup>
 
 					</p:panelGrid>
-					
+
 					<!--  <p:calendar id="selectBeginDate" value="" readOnlyInputText="true"
 						navigator="true" pattern="dd.MM.yyyy HH:mm:ss" locale="sl" /> -->
 					<p:commandButton ajax="false" value="Shrani" icon="ui-icon-disk"
 						action="#{porociloCtrl.create()}" />
-						
-					<p:commandButton icon="fa fa-search"
-						onclick="PF('dialogSelectUnatdtab').show();"
-													title="dodaj aktivnost"/>
+
+
 				</h:form>
+
+				<p:commandButton icon="fa fa-search"
+					onclick="PF('dialogAktivnost').show();" title="dodaj aktivnost" />
 			</h:panelGroup>
 		</div>
 		<div class="columnRight">

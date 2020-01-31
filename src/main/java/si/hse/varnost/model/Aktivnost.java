@@ -4,33 +4,16 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.TableGenerator;
+import javax.persistence.Embeddable;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.xml.bind.annotation.XmlRootElement;
+		
 
-
-@Entity
-@Table(name = "aktivnost")
-@XmlRootElement
+@Embeddable
 public class Aktivnost implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(generator = "sqlite")
-	@TableGenerator(name = "aktivnostId", table = "sqlite_sequence", pkColumnName = "name", valueColumnName = "seq", pkColumnValue = "aktivnost")
-	private Long id;
-
-	@ManyToOne
-	@JoinColumn(name = "id_porocilo", nullable = false)
-	private Porocilo porocilo;
 
 	@Column(name = "aktivnost")
 	private String aktivnost;
@@ -44,17 +27,15 @@ public class Aktivnost implements Serializable {
 	@Column(name = "datum_do")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date datumDo;
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
-	public Porocilo getPorocilo() {
-		return porocilo;
-	}
-	public void setPorocilo(Porocilo porocilo) {
-		this.porocilo = porocilo;
+
+	public Aktivnost() {}
+	
+	public Aktivnost(String string, String string2, Date datumOd2, Date datumDo2, String zaznamek2) {
+		this.aktivnost=string;
+		this.mestoDogodka=string2;
+		this.datumOd=datumOd2;
+		this.datumDo=datumDo2;
+		this.zaznamek=zaznamek2;
 	}
 	public String getAktivnost() {
 		return aktivnost;
