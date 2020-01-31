@@ -9,6 +9,9 @@
     <class>si.hse.varnost.model.Varnostnik</class>
     <class>si.hse.varnost.model.Izmenovodja</class>
     <class>si.hse.varnost.model.Ostalo</class>
+    <class>si.hse.varnost.model.Porocilo</class>
+    <class>si.hse.varnost.model.Aktivnost</class>
+    
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jtaDataSource" 

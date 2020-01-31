@@ -9,56 +9,43 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
-import si.hse.varnost.model.Ostalo;
+import si.hse.varnost.model.Porocilo;
+import si.hse.varnost.model.Varnostnik;
 
 @Stateless
 @Transactional(Transactional.TxType.REQUIRES_NEW)
-public class OstaloEjb {
+public class PorociloEjb {
 	@PersistenceContext
 	private EntityManager em;
 	@Inject
 	private Tools tools;
-
+	
+	public void create(Porocilo porocilo) throws Exception {
+		EntityManager em = tools.getEntityManager();
+		try {
+			em.merge(porocilo);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			em.close();
+		}
+	}
+	
 	@SuppressWarnings("unchecked")
-	public List<Ostalo> findAll() {
+	public List<Porocilo> findAll() {
 		EntityManager em = tools.getEntityManager();
 
-		List<Ostalo> results = new ArrayList<Ostalo>();
+		List<Porocilo> results = new ArrayList<>();
 		try {
-			results = em.createQuery("SELECT v FROM Ostalo v").getResultList();
+			results = em.createQuery("SELECT v FROM Porocilo v").getResultList();
 		} catch (Exception e) {
-			System.err.println("Exception pri OstaloEjb:" + e.getLocalizedMessage());
+			System.err.println("Exception pri PorociloEjb:" + e.getLocalizedMessage());
 			e.printStackTrace();
 		} finally {
 			em.close();
 		}
 
 		return results;
-	}
-
-	public Ostalo mergeOstalo(Ostalo selected) throws Exception {
-		EntityManager em = tools.getEntityManager();
-		try {
-			return em.merge(selected);
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
-		} finally {
-			em.close();
-		}
-
-	}
-	
-	public void deleteOstalo(Ostalo v) throws Exception {
-		EntityManager em = tools.getEntityManager();
-		try {
-			Ostalo ostalo = em.merge(v);
-			em.remove(ostalo);
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
-		} finally {
-			em.close();
-		}
 	}
 }

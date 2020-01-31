@@ -22,7 +22,7 @@
     }
     //]]>
 </script>
-	
+
 </h:head>
 <h:body>
 	<h1></h1>
@@ -41,44 +41,80 @@
 		<div class="columnCenter" id="mainColumn">
 			<h:panelGroup style="display:block; text-align:center">
 				<h1>Dnevno poročilo varnostnika</h1>
-				<!--          -->
-				<p:panelGrid columns="2">
-					<h:outputText value="Datum:" />
-					<p:calendar id="idStartDate" binding="#{startDate}" 
-                            value="" pattern="dd.MM.yyyy" locale="sl" />
+				<h:form>
+					<p:growl id="mainGrowl" showDetail="true" sticky="true" />
+					<!--          -->
+					<p:panelGrid columns="2">
+						<h:outputText value="Datum:" />
+						<h:panelGroup>
+							<p:calendar id="inputStartDate" binding="#{startDate}"
+								value="#{porociloCtrl.selected.datum}" pattern="dd.MM.yyyy"
+								required="true" requiredMessage="izberi datum"
+								locale="sl" />
+							<p:message for="inputStartDate" />
+						</h:panelGroup>
 
-					<h:outputText value="Izmena:" />
-					<h:selectOneMenu value="">
-							<f:selectItems value="#{ostaloCtrl.izmena}" var="v"
-								itemValue="#{v}" itemLabel="#{v.opis}" />
-						</h:selectOneMenu>
+						<h:outputText value="Izmena:" />
+						<h:panelGroup>
+							<p:selectOneMenu id="inputIzmena"
+								value="#{porociloCtrl.selected.izmena}" required="true"
+								requiredMessage="Izberi izmeno!">
+								<f:selectItem itemLabel="" noSelectionOption="true"
+									itemDisabled="true" />
+								<f:selectItems value="#{ostaloCtrl.izmena}" var="v"
+									itemValue="#{v.opis}" itemLabel="#{v.opis}" />
+							</p:selectOneMenu>
+							<p:message for="inputIzmena" />
+						</h:panelGroup>
+
+						<h:outputText value="Varnostno mesto:" />
+						<h:panelGroup>
+							<p:selectOneMenu id="inputVarnostnoMesto"
+								value="#{porociloCtrl.selected.varnostnoMesto}" required="true"
+								requiredMessage="Izberi varnostno mesto">
+								<f:selectItem itemLabel="" noSelectionOption="true"
+									itemDisabled="true" />
+								<f:selectItems value="#{ostaloCtrl.mesto}" var="v"
+									itemValue="#{v.opis}" itemLabel="#{v.opis}" />
+							</p:selectOneMenu>
+							<p:message for="inputVarnostnoMesto" />
+						</h:panelGroup>
+
+					</p:panelGrid>
+					<p:panelGrid columns="4">
+						<h:outputText value="Varnostnik:" />
+						<h:panelGroup>
+							<p:selectOneMenu id="inputVarnostnik"
+								value="#{porociloCtrl.selected.varnostnik}" required="true"
+								requiredMessage="Izberi varnostnika!">
+								<f:selectItem itemLabel="" noSelectionOption="true"
+									itemDisabled="true" />
+								<f:selectItems value="#{varCtrl.list}" var="varnostnik"
+									itemValue="#{varnostnik.ime}" itemLabel="#{varnostnik.ime}" />
+							</p:selectOneMenu>
+							<p:message for="inputVarnostnik" />
+						</h:panelGroup>
+
+						<h:outputText value="Izmenovodja:" />
+						<h:panelGroup id="izmenovodjaGroup">
+							<p:selectOneMenu id="inputIzmenovodja"
+								value="#{porociloCtrl.selected.izmenovodja}" required="true"
+								requiredMessage="Izberi izmenovodjo!">
+								<f:selectItem itemLabel="" noSelectionOption="true"
+									itemDisabled="true" />
+								<f:selectItems value="#{izmenovodjaCtrl.list}" var="izmenovodja"
+									itemValue="#{izmenovodja.ime}" itemLabel="#{izmenovodja.ime}" />
+							</p:selectOneMenu>
+							<p:message for="inputIzmenovodja" />
+						</h:panelGroup>
+
+					</p:panelGrid>
 					
-					<h:outputText value="Varnostno mesto:" />
-					<h:selectOneMenu value="">
-							<f:selectItems value="#{ostaloCtrl.mesto}" var="v"
-								itemValue="#{v}" itemLabel="#{v.opis}" />
-						</h:selectOneMenu>
-
-				</p:panelGrid>
-				<p:panelGrid columns="4">
-					<h:outputText value="Varnostnik:" />
-					<h:selectOneMenu value="">
-							<f:selectItems value="#{varCtrl.list}" var="varnostnik"
-								itemValue="#{varnostnik}" itemLabel="#{varnostnik.ime}" />
-						</h:selectOneMenu>
-
-					<h:outputText value="Izmenovodja:" />
-					<h:selectOneMenu value="">
-							<f:selectItems value="#{izmenovodjaCtrl.list}" var="izmenovodja"
-								itemValue="#{izmenovodja}" itemLabel="#{izmenovodja.ime}" />
-						</h:selectOneMenu>
-
-
-				</p:panelGrid>
-<p:calendar id="selectBeginDate" value=""
-							readOnlyInputText="true" navigator="true"
-							pattern="dd.MM.yyyy HH:mm:ss"  locale="sl"/>
-				<!--   -->
+					<!--  <p:calendar id="selectBeginDate" value="" readOnlyInputText="true"
+						navigator="true" pattern="dd.MM.yyyy HH:mm:ss" locale="sl" /> -->
+					<p:commandButton ajax="false" value="Shrani" icon="ui-icon-disk"
+						action="#{porociloCtrl.create()}" />
+				</h:form>
 			</h:panelGroup>
 		</div>
 		<div class="columnRight">

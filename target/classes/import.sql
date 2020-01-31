@@ -56,3 +56,24 @@ insert into ostalo(opis, vrsta) values('Delavnice','mesto dogodka');
 insert into ostalo(opis, vrsta) values('Priprava vode 1','mesto dogodka');
 insert into ostalo(opis, vrsta) values('Priprava vode 2','mesto dogodka');
 insert into ostalo(opis, vrsta) values('Priprava vode 3','mesto dogodka');
+
+create table porocilo(id INTEGER PRIMARY KEY AUTOINCREMENT,
+	datum datetime,
+	izmena text,
+	varnostno_mesto text,
+	varnostnik text,
+	izmenovodja text,
+	save_time datetime
+	);
+
+
+create table aktivnost(id INTEGER PRIMARY KEY AUTOINCREMENT,
+	id_porocilo integer, 
+	aktivnost TEXT, 
+	od_ur integer, 
+	od_min integer, 
+	do_ur integer, 
+	do_min integer,
+	mesto_dogodka text,
+	zaznamek text
+	);
