@@ -96,7 +96,8 @@ public class OstaloController  implements Serializable {
 	}
 	
 	public List<Ostalo> getAktivnost(){
-		return list.stream().filter(o -> o.getVrsta().equals(Vrsta.AKTIVNOST)).collect(Collectors.toList());
+		List<Ostalo> aktivnosti = list.stream().filter(o -> o.getVrsta().equals(Vrsta.AKTIVNOST)).collect(Collectors.toList());
+		return aktivnosti;
 	}
 	
 	public List<Ostalo> getVm(){

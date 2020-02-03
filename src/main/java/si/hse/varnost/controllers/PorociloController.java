@@ -2,26 +2,72 @@ package si.hse.varnost.controllers;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.primefaces.context.RequestContext;
+
+import si.hse.varnost.ejb.OstaloEjb;
 import si.hse.varnost.ejb.PorociloEjb;
 import si.hse.varnost.model.Aktivnost;
 import si.hse.varnost.model.Ostalo;
 import si.hse.varnost.model.Porocilo;
+import si.hse.varnost.model.Vrsta;
 
 @ViewScoped
 @Named("porociloCtrl")
-public class PorociloController  implements Serializable {
+public class PorociloController implements Serializable {
 	private static final long serialVersionUID = 1L;
+
+	@Inject
+	PorociloEjb ejb;
+	@Inject
+	OstaloEjb ostaloEjb;
+
+	public List<Ostalo> getAktivnosti() {
+		return aktivnosti;
+	}
+
+	public List<Ostalo> getMesta() {
+		return mesta;
+	}
+
+	public List<Ostalo> getIzmene() {
+		return izmene;
+	}
+
+	public List<Ostalo> getVms() {
+		return vms;
+	}
 	
-	@Inject PorociloEjb ejb;
-	
+	public List<Ostalo> getVsiOstalo() {
+		return vsiOstalo;
+	}
+
+	List<Ostalo> aktivnosti, mesta, izmene, vms, vsiOstalo;
+
+	@PostConstruct
+	public void init() {
+		try {
+			vsiOstalo = ostaloEjb.findAll();
+			aktivnosti = ostaloEjb.findByVrsta(Vrsta.AKTIVNOST);
+			mesta = ostaloEjb.findByVrsta(Vrsta.MESTO);
+			izmene = ostaloEjb.findByVrsta(Vrsta.IZMENA);
+			vms = ostaloEjb.findByVrsta(Vrsta.VM);
+		} catch (Exception e) {
+			System.out.println("mam exception pri init:" + e);
+			e.printStackTrace();
+		}
+	}
+
 	public Ostalo getAktivnost() {
 		return aktivnost;
 	}
@@ -62,23 +108,25 @@ public class PorociloController  implements Serializable {
 		this.zaznamek = zaznamek;
 	}
 
-	Ostalo aktivnost = new Ostalo();
-	Ostalo mestoDogodka = new Ostalo();
+	Ostalo aktivnost = null;
+	Ostalo mestoDogodka = null;
 	Date datumOd = null;
 	Date datumDo = null;
 	String zaznamek = new String();
-		
+
 	Porocilo selected = new Porocilo();
 
 	public void create() {
-		
+
 		try {
 			ejb.create(selected);
-				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Poročilo shranjeno", ""));
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_INFO, "Poročilo shranjeno", ""));
 		} catch (Exception e) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Napaka pri shranjevanju", e.getLocalizedMessage()));
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Napaka pri shranjevanju", e.getLocalizedMessage()));
 			e.printStackTrace();
-		}finally {
+		} finally {
 			selected = new Porocilo();
 		}
 	}
@@ -90,17 +138,25 @@ public class PorociloController  implements Serializable {
 	public void setSelected(Porocilo selected) {
 		this.selected = selected;
 	}
-	
+
 	public void addAktivnost() {
-		selected.getAktivnosti().add(new Aktivnost(aktivnost.getOpis(), mestoDogodka.getOpis(), datumOd, datumDo, zaznamek));
-		cancelAktivnost();
+		try {
+			selected.getAktivnosti()
+					.add(new Aktivnost(aktivnost.getOpis(), mestoDogodka.getOpis(), datumOd, datumDo, zaznamek));
+			cancelAktivnost();
+			RequestContext.getCurrentInstance().execute("PF('dialogAktivnost').hide()");
+		} catch (Exception e) {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Napaka pri shranjevanju", e.getLocalizedMessage()));
+			e.printStackTrace();
+		}
 	}
 
 	public void cancelAktivnost() {
-		 aktivnost = new Ostalo();
-		 mestoDogodka = new Ostalo();
-		 datumOd = null;
-		 datumDo = null;
-		 zaznamek = new String();
+		aktivnost = null;
+		mestoDogodka = null;
+		datumOd = null;
+		datumDo = null;
+		zaznamek = new String();
 	}
 }

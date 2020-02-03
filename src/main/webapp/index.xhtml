@@ -37,12 +37,12 @@
 				<p:panelGrid columns="2">
 					<label>Aktivnost:</label>
 					<h:panelGroup>
-						<p:selectOneMenu id="inputAktivnost"
+						<p:selectOneMenu id="inputAktivnost" converter="OstaloConverter"
 							value="#{porociloCtrl.aktivnost}" required="true"
 							requiredMessage="Izberi aktivnost">
 							<f:selectItem itemLabel="" noSelectionOption="true"
 								itemDisabled="true" />
-							<f:selectItems value="#{ostaloCtrl.aktivnost}" var="v"
+							<f:selectItems value="#{porociloCtrl.aktivnosti}" var="v"
 								itemValue="#{v.opis}" itemLabel="#{v.opis}" />
 						</p:selectOneMenu>
 						<p:message for="inputAktivnost" />
@@ -71,12 +71,12 @@
 				<p:panelGrid columns="2">
 					<label>Mesto dogodka:</label>
 					<h:panelGroup>
-						<p:selectOneMenu id="inputMestoDogodka"
+						<p:selectOneMenu id="inputMestoDogodka" converter="OstaloConverter"
 							value="#{porociloCtrl.mestoDogodka}" required="true"
 							requiredMessage="Izberi mesto dogodka">
 							<f:selectItem itemLabel="" noSelectionOption="true"
 								itemDisabled="true" />
-							<f:selectItems value="#{ostaloCtrl.mesto}" var="v"
+							<f:selectItems value="#{porociloCtrl.mesta}" var="v"
 								itemValue="#{v.opis}" itemLabel="#{v.opis}" />
 						</p:selectOneMenu>
 						<p:message for="inputMestoDogodka" />
@@ -89,12 +89,10 @@
 						cols="33" />
 				</p:panelGrid>
 				<p:panelGrid columns="2">
-					<p:commandButton value="shrani"
-						action="#{porociloCtrl.addAktivnost()}"
-						oncomplete="PF('dialogAktivnost').hide()" update=""
-						process="@form" />
+					<p:commandButton ajax="false" value="Shrani" icon="ui-icon-disk"
+						action="#{porociloCtrl.addAktivnost()}" 
+						process="@form"  />
 					<p:commandButton value="prekliči" title="prekliči"
-						styleClass="btn-cta btn-cta-icon" icon="fa fa-plus"
 						action="#{porociloCtrl.cancelAktivnost}"
 						onclick="PF('dialogAktivnost').hide();" />
 				</p:panelGrid>
@@ -133,12 +131,12 @@
 
 						<h:outputText value="Izmena:" />
 						<h:panelGroup>
-							<p:selectOneMenu id="inputIzmena"
+							<p:selectOneMenu id="inputIzmena" 
 								value="#{porociloCtrl.selected.izmena}" required="true"
 								requiredMessage="Izberi izmeno!">
 								<f:selectItem itemLabel="" noSelectionOption="true"
 									itemDisabled="true" />
-								<f:selectItems value="#{ostaloCtrl.izmena}" var="v"
+								<f:selectItems value="#{porociloCtrl.izmene}" var="v"
 									itemValue="#{v.opis}" itemLabel="#{v.opis}" />
 							</p:selectOneMenu>
 							<p:message for="inputIzmena" />
@@ -151,7 +149,7 @@
 								requiredMessage="Izberi varnostno mesto">
 								<f:selectItem itemLabel="" noSelectionOption="true"
 									itemDisabled="true" />
-								<f:selectItems value="#{ostaloCtrl.mesto}" var="v"
+								<f:selectItems value="#{porociloCtrl.vms}" var="v"
 									itemValue="#{v.opis}" itemLabel="#{v.opis}" />
 							</p:selectOneMenu>
 							<p:message for="inputVarnostnoMesto" />

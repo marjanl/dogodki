@@ -16,6 +16,7 @@
     <properties>
       <property name="javax.persistence.jtaDataSource" 
           value="java:/hseDS" />
+      <property name="eclipselink.logging.level" value="FINE"/>
     </properties>
   </persistence-unit>
 </persistence>
