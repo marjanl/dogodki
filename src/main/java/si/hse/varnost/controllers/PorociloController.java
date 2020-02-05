@@ -3,8 +3,7 @@ package si.hse.varnost.controllers;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
+
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -31,6 +30,67 @@ public class PorociloController implements Serializable {
 	PorociloEjb ejb;
 	@Inject
 	OstaloEjb ostaloEjb;
+	Ostalo aktivnost = null;
+	Ostalo mestoDogodka = null;
+	Date datumOd = null;
+	Date datumDo = null;
+	String zaznamek = new String();
+	Porocilo selected = new Porocilo();
+	List<Ostalo> aktivnosti, mesta, izmene, vms, vsiOstalo;
+
+	@PostConstruct
+	public void init() {
+		try {
+			vsiOstalo = ostaloEjb.findAll();
+			aktivnosti = ostaloEjb.findByVrsta(Vrsta.AKTIVNOST);
+			mesta = ostaloEjb.findByVrsta(Vrsta.MESTO);
+			izmene = ostaloEjb.findByVrsta(Vrsta.IZMENA);
+			vms = ostaloEjb.findByVrsta(Vrsta.VM);
+		} catch (Exception e) {
+			System.out.println("mam exception pri init:" + e);
+			e.printStackTrace();
+		}
+	}
+	
+	public void create() {
+
+		try {
+			ejb.create(selected);
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_INFO, "Poročilo shranjeno", ""));
+		} catch (Exception e) {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Napaka pri shranjevanju", e.getLocalizedMessage()));
+			e.printStackTrace();
+		} finally {
+			selected = new Porocilo();
+		}
+	}
+	
+	public void addAktivnost() {
+		try {
+			selected.getAktivnosti()
+					.add(new Aktivnost(aktivnost.getOpis(), mestoDogodka.getOpis(), datumOd, datumDo, zaznamek));
+			cancelAktivnost();
+			RequestContext.getCurrentInstance().execute("PF('dialogAktivnost').hide()");
+		} catch (Exception e) {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Napaka pri shranjevanju", e.getLocalizedMessage()));
+			e.printStackTrace();
+		}
+	}
+	
+	public void removeAktivnost(Aktivnost akt) {
+		selected.getAktivnosti().remove(akt);
+	}
+
+	public void cancelAktivnost() {
+		aktivnost = null;
+		mestoDogodka = null;
+		datumOd = null;
+		datumDo = null;
+		zaznamek = new String();
+	}
 
 	public List<Ostalo> getAktivnosti() {
 		return aktivnosti;
@@ -51,23 +111,7 @@ public class PorociloController implements Serializable {
 	public List<Ostalo> getVsiOstalo() {
 		return vsiOstalo;
 	}
-
-	List<Ostalo> aktivnosti, mesta, izmene, vms, vsiOstalo;
-
-	@PostConstruct
-	public void init() {
-		try {
-			vsiOstalo = ostaloEjb.findAll();
-			aktivnosti = ostaloEjb.findByVrsta(Vrsta.AKTIVNOST);
-			mesta = ostaloEjb.findByVrsta(Vrsta.MESTO);
-			izmene = ostaloEjb.findByVrsta(Vrsta.IZMENA);
-			vms = ostaloEjb.findByVrsta(Vrsta.VM);
-		} catch (Exception e) {
-			System.out.println("mam exception pri init:" + e);
-			e.printStackTrace();
-		}
-	}
-
+	
 	public Ostalo getAktivnost() {
 		return aktivnost;
 	}
@@ -108,29 +152,6 @@ public class PorociloController implements Serializable {
 		this.zaznamek = zaznamek;
 	}
 
-	Ostalo aktivnost = null;
-	Ostalo mestoDogodka = null;
-	Date datumOd = null;
-	Date datumDo = null;
-	String zaznamek = new String();
-
-	Porocilo selected = new Porocilo();
-
-	public void create() {
-
-		try {
-			ejb.create(selected);
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_INFO, "Poročilo shranjeno", ""));
-		} catch (Exception e) {
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Napaka pri shranjevanju", e.getLocalizedMessage()));
-			e.printStackTrace();
-		} finally {
-			selected = new Porocilo();
-		}
-	}
-
 	public Porocilo getSelected() {
 		return selected;
 	}
@@ -139,28 +160,4 @@ public class PorociloController implements Serializable {
 		this.selected = selected;
 	}
 
-	public void addAktivnost() {
-		try {
-			selected.getAktivnosti()
-					.add(new Aktivnost(aktivnost.getOpis(), mestoDogodka.getOpis(), datumOd, datumDo, zaznamek));
-			cancelAktivnost();
-			RequestContext.getCurrentInstance().execute("PF('dialogAktivnost').hide()");
-		} catch (Exception e) {
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Napaka pri shranjevanju", e.getLocalizedMessage()));
-			e.printStackTrace();
-		}
-	}
-	
-	public void removeAktivnost(Aktivnost akt) {
-		selected.getAktivnosti().remove(akt);
-	}
-
-	public void cancelAktivnost() {
-		aktivnost = null;
-		mestoDogodka = null;
-		datumOd = null;
-		datumDo = null;
-		zaznamek = new String();
-	}
 }

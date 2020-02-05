@@ -24,6 +24,9 @@ public class Izmenovodja implements Serializable {
 	@Column(length = 100, nullable = false)
 	private String ime;
 	
+	@Column(name="is_deleted")
+	private boolean deleted =false;
+	
 	public Izmenovodja() {}
 	
 	public Izmenovodja(Long id, String ime) {
@@ -48,6 +51,12 @@ public class Izmenovodja implements Serializable {
 		this.ime = ime;
 	}
 
-	
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
 	
 }

@@ -26,7 +26,7 @@ public class OstaloEjb {
 
 		List<Ostalo> results = new ArrayList<Ostalo>();
 		try {
-			results = em.createQuery("SELECT v FROM Ostalo v").getResultList();
+			results = em.createQuery("SELECT v FROM Ostalo v WHERE v.deleted=FALSE").getResultList();
 		} catch (Exception e) {
 			System.err.println("Exception pri OstaloEjb:" + e.getLocalizedMessage());
 			e.printStackTrace();
@@ -43,7 +43,7 @@ public class OstaloEjb {
 
 		List<Ostalo> results = new ArrayList<Ostalo>();
 		try {
-			results = em.createQuery("SELECT v FROM Ostalo v WHERE v.vrsta=:vrsta").setParameter("vrsta", vrsta).getResultList();
+			results = em.createQuery("SELECT v FROM Ostalo v WHERE v.vrsta=:vrsta AND v.deleted=FALSE").setParameter("vrsta", vrsta).getResultList();
 		} catch (Exception e) {
 			System.err.println("Exception pri OstaloEjb:" + e.getLocalizedMessage());
 			e.printStackTrace();
@@ -60,7 +60,7 @@ public class OstaloEjb {
 
 		Ostalo result =  null;
 		try {
-			result = (Ostalo) em.createQuery("SELECT v FROM Ostalo v WHERE v.opis = :opis ").setParameter("opis", opis).getSingleResult();
+			result = (Ostalo) em.createQuery("SELECT v FROM Ostalo v WHERE v.opis = :opis AND v.deleted=FALSE").setParameter("opis", opis).getSingleResult();
 		} catch (Exception e) {
 			System.err.println("Exception pri OstaloEjb:" + e.getLocalizedMessage());
 			e.printStackTrace();
@@ -77,7 +77,7 @@ public class OstaloEjb {
 
 		Ostalo result =  null;
 		try {
-			result = (Ostalo) em.createQuery("SELECT v FROM Ostalo v WHERE v.id = :id ").setParameter("id", id).getSingleResult();
+			result = (Ostalo) em.createQuery("SELECT v FROM Ostalo v WHERE v.id = :id AND v.deleted=FALSE").setParameter("id", id).getSingleResult();
 		} catch (Exception e) {
 			System.err.println("Exception pri OstaloEjb:" + e.getLocalizedMessage());
 			e.printStackTrace();
@@ -104,8 +104,8 @@ public class OstaloEjb {
 	public void deleteOstalo(Ostalo v) throws Exception {
 		EntityManager em = tools.getEntityManager();
 		try {
-			Ostalo ostalo = em.merge(v);
-			em.remove(ostalo);
+			v.setDeleted(true);
+			em.merge(v);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;

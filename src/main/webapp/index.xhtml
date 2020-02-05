@@ -91,7 +91,7 @@
 				<p:panelGrid columns="2">
 					<p:commandButton ajax="false" value="Shrani" icon="ui-icon-disk"
 						action="#{porociloCtrl.addAktivnost()}"
-						update=":aktivnostForm:aktivnostiDT" process="@form" />
+						update=":porociloForm:aktivnostiDT" process="@form" />
 					<p:commandButton value="prekliči" title="prekliči"
 						action="#{porociloCtrl.cancelAktivnost}"
 						onclick="PF('dialogAktivnost').hide();" />
@@ -118,7 +118,6 @@
 
 			<h1>Dnevno poročilo varnostnika</h1>
 			<h:form id="porociloForm">
-				<p:remoteCommand name="processFormUser" process="@form" update="@form" action="#{porociloCtrl.create()}"/>
 				<h:panelGroup style="display:block; text-align:center">
 					<p:growl id="mainGrowl" showDetail="true" sticky="true" />
 					<!--          -->
@@ -187,10 +186,8 @@
 
 					</p:panelGrid>
 				</h:panelGroup>
-			</h:form>
 
 			<br />
-			<h:form id="aktivnostForm">
 				<p:dataTable id="aktivnostiDT" var="akt" editable="false"
 					style="width:100%;"
 					emptyMessage="ni vnešenih aktivnosti za dnevno poročilo"
@@ -232,12 +229,9 @@
 					title="Dodaj aktivnost" />
 				<br />
 				<br />
-			</h:form>
 
-
-			<h:form id="submitForm">
 				<p:commandButton ajax="false" value="Shrani" icon="ui-icon-disk"
-					onclick="processFormUser();"/>
+					 process="@form" update="@form" action="#{porociloCtrl.create()}"/>
 			</h:form>
 
 		</div>

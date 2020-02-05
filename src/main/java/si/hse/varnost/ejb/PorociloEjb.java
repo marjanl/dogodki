@@ -11,7 +11,6 @@ import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
 import si.hse.varnost.model.Porocilo;
-import si.hse.varnost.model.Varnostnik;
 
 @Stateless
 @Transactional(Transactional.TxType.REQUIRES_NEW)
@@ -40,7 +39,7 @@ public class PorociloEjb {
 
 		List<Porocilo> results = new ArrayList<>();
 		try {
-			results = em.createQuery("SELECT v FROM Porocilo v").getResultList();
+			results = em.createQuery("SELECT v FROM Porocilo v WHERE v.deleted=FALSE ORDER BY v.id DESC").getResultList();
 		} catch (Exception e) {
 			System.err.println("Exception pri PorociloEjb:" + e.getLocalizedMessage());
 			e.printStackTrace();

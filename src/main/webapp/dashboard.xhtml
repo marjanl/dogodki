@@ -1,0 +1,53 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:astana="http://java.sun.com/jsf/composite/astana"
+	template="/WEB-INF/templates/template.xhtml">
+
+	<ui:define name="title">
+        Pregled poročil
+    </ui:define>
+
+	<ui:define name="content">
+
+
+		<h1>Pregled vseh poročil</h1>
+		<h:form>
+			<p:dataTable id="pregledDt" paginator="true" rows="5"
+				rowsPerPageTemplate="5,10,15,25,50,100"
+				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				value="#{pregledCtrl.porocila}" var="n" widgetvar="pregledDtVar"
+				selectionMode="single" selection="#{porociloCtrl.selected}"
+				rowKey="#{n.id}">
+				<p:column headerText="Čas oddaje" sortBy="#{n.saveTime}">
+					<h:outputText value="#{n.saveTime}">
+						<f:convertDateTime pattern="dd.MM.yyyy HH:mm:ss" />
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Datum" sortBy="#{n.datum}">
+					<h:outputText value="#{n.datum}">
+						<f:convertDateTime pattern="dd.MM.yyyy HH:mm:ss" />
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Izmena" filterBy="#{n.izmena}"
+					sortBy="#{n.izmena}" filterMatchMode="contains">
+					<h:outputText value="#{n.izmena}" />
+				</p:column>
+				<p:column headerText="VM" filterBy="#{n.varnostnoMesto}"
+					sortBy="#{n.varnostnoMesto}" filterMatchMode="contains">
+					<h:outputText value="#{n.varnostnoMesto}" />
+				</p:column>
+				<p:column headerText="Varnostnik" filterBy="#{n.varnostnik}"
+					sortBy="#{n.varnostnik}" filterMatchMode="contains">
+					<h:outputText value="#{n.varnostnik}" />
+				</p:column>
+				<p:column headerText="Izmenovodja" filterBy="#{n.izmenovodja}"
+					sortBy="#{n.izmenovodja}" filterMatchMode="contains">
+					<h:outputText value="#{n.izmenovodja}" />
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>
