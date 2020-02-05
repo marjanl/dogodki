@@ -151,6 +151,10 @@ public class PorociloController implements Serializable {
 			e.printStackTrace();
 		}
 	}
+	
+	public void removeAktivnost(Aktivnost akt) {
+		selected.getAktivnosti().remove(akt);
+	}
 
 	public void cancelAktivnost() {
 		aktivnost = null;

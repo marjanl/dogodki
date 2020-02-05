@@ -18,8 +18,8 @@ public class Ostalo implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(generator="sqlite")
-	@TableGenerator(name="ostaloId", table="sqlite_sequence",
+	@GeneratedValue(generator="sqlite3")
+	@TableGenerator(name="sqlite3", table="sqlite_sequence",
 	    pkColumnName="name", valueColumnName="seq",
 	    pkColumnValue="ostalo")
 	private Long id;

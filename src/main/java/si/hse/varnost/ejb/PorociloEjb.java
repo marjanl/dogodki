@@ -1,6 +1,7 @@
 package si.hse.varnost.ejb;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -23,6 +24,7 @@ public class PorociloEjb {
 	public void create(Porocilo porocilo) throws Exception {
 		EntityManager em = tools.getEntityManager();
 		try {
+			porocilo.setSaveTime(new Date());
 			em.merge(porocilo);
 		} catch (Exception e) {
 			e.printStackTrace();

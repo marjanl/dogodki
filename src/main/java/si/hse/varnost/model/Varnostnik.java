@@ -17,8 +17,8 @@ public class Varnostnik implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(generator="sqlite")
-	@TableGenerator(name="varnostnikId", table="sqlite_sequence",
+	@GeneratedValue(generator="sqlite4")
+	@TableGenerator(name="sqlite4", table="sqlite_sequence",
 	    pkColumnName="name", valueColumnName="seq",
 	    pkColumnValue="varnostnik")
 	private Long id;

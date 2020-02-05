@@ -15,8 +15,8 @@ public class Izmenovodja implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@Id
-	@GeneratedValue(generator="sqlite")
-	@TableGenerator(name="izmenovodjaId", table="sqlite_sequence",
+	@GeneratedValue(generator="sqlite2")
+	@TableGenerator(name="sqlite2", table="sqlite_sequence",
 	    pkColumnName="name", valueColumnName="seq",
 	    pkColumnValue="izmenovodja")
 	private Long id;

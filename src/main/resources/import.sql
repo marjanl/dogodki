@@ -67,13 +67,11 @@ create table porocilo(id INTEGER PRIMARY KEY AUTOINCREMENT,
 	);
 
 
-create table aktivnost(id INTEGER PRIMARY KEY AUTOINCREMENT,
-	id_porocilo integer, 
-	aktivnost TEXT, 
-	od_ur integer, 
-	od_min integer, 
-	do_ur integer, 
-	do_min integer,
-	mesto_dogodka text,
-	zaznamek text
-	);
+CREATE TABLE aktivnost(
+id_porocilo integer, 
+aktivnost TEXT, 
+mesto_dogodka text,
+zaznamek text,
+datum_od datetime,
+datum_do datetime
+);

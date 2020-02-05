@@ -29,15 +29,11 @@ public class OstaloConverter implements Converter , Serializable {
 	        return null;
 	    }
 	    try {
-	    	System.out.println("submitted value =>"+submittedValue);
 	    	PorociloController ctrl = context.getApplication().evaluateExpressionGet(context, "#{porociloCtrl}", PorociloController.class);
-	    	//return ctrl.getVsiOstalo().stream().filter(f -> f.getOpis().equals(submittedValue));
 	    	for(Ostalo o : ctrl.getVsiOstalo()) {
 	    		if(o.getOpis().equals(submittedValue)) {
-	    			System.out.println("Heureka, našel "+o.getOpis()+"--->"+o.getId());
 	    			return o;
 	    		}
-	    		System.out.println("nic najdu za "+o.getOpis());
 	    	}
 	    	
 	    } catch (Exception e) {
@@ -52,12 +48,6 @@ public class OstaloConverter implements Converter , Serializable {
 	        return "";
 	    }
 	    return modelValue.toString();
-/*
-	    if (modelValue instanceof Ostalo) {
-	        return modelValue.toString();
-	    } else {
-	        throw new ConverterException(new FacesMessage(modelValue + " neveljavna vrednost v konverterju"));
-	    }*/
 	}
 
 }

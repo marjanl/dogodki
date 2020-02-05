@@ -30,8 +30,8 @@ public class Porocilo implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(generator="sqlite")
-	@TableGenerator(name="porociloId", table="sqlite_sequence",
+	@GeneratedValue(generator="sqlite1")
+	@TableGenerator(name="sqlite1", table="sqlite_sequence",
 	    pkColumnName="name", valueColumnName="seq",
 	    pkColumnValue="porocilo")
 	private Long id;

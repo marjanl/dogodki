@@ -55,7 +55,7 @@
 						<p:calendar id="inputDatumOd" value="#{porociloCtrl.datumOd}"
 							readOnlyInputText="true" required="true"
 							requiredMessage="vnesi od" navigator="true"
-							pattern="dd.MM.yyyy HH:mm:ss" locale="sl" />
+							pattern="dd.MM.yyyy HH:mm" locale="sl" />
 						<p:message for="inputDatumOd" />
 					</h:panelGroup>
 					<label>do:</label>
@@ -63,7 +63,7 @@
 						<p:calendar id="inputDatumDo" value="#{porociloCtrl.datumDo}"
 							readOnlyInputText="true" required="true"
 							requiredMessage="vnesi od" navigator="true"
-							pattern="dd.MM.yyyy HH:mm:ss" locale="sl" />
+							pattern="dd.MM.yyyy HH:mm" locale="sl" />
 						<p:message for="inputDatumDo" />
 					</h:panelGroup>
 				</p:panelGrid>
@@ -71,9 +71,9 @@
 				<p:panelGrid columns="2">
 					<label>Mesto dogodka:</label>
 					<h:panelGroup>
-						<p:selectOneMenu id="inputMestoDogodka" converter="OstaloConverter"
-							value="#{porociloCtrl.mestoDogodka}" required="true"
-							requiredMessage="Izberi mesto dogodka">
+						<p:selectOneMenu id="inputMestoDogodka"
+							converter="OstaloConverter" value="#{porociloCtrl.mestoDogodka}"
+							required="true" requiredMessage="Izberi mesto dogodka">
 							<f:selectItem itemLabel="" noSelectionOption="true"
 								itemDisabled="true" />
 							<f:selectItems value="#{porociloCtrl.mesta}" var="v"
@@ -90,8 +90,8 @@
 				</p:panelGrid>
 				<p:panelGrid columns="2">
 					<p:commandButton ajax="false" value="Shrani" icon="ui-icon-disk"
-						action="#{porociloCtrl.addAktivnost()}" 
-						process="@form"  />
+						action="#{porociloCtrl.addAktivnost()}"
+						update=":aktivnostForm:aktivnostiDT" process="@form" />
 					<p:commandButton value="prekliči" title="prekliči"
 						action="#{porociloCtrl.cancelAktivnost}"
 						onclick="PF('dialogAktivnost').hide();" />
@@ -114,10 +114,12 @@
 				</div>
 			</div>
 		</div>
-		<div class="columnCenter" id="mainColumn">
-			<h:panelGroup style="display:block; text-align:center">
-				<h1>Dnevno poročilo varnostnika</h1>
-				<h:form>
+		<div class="columnCenter">
+
+			<h1>Dnevno poročilo varnostnika</h1>
+			<h:form id="porociloForm">
+				<p:remoteCommand name="processFormUser" process="@form" update="@form" action="#{porociloCtrl.create()}"/>
+				<h:panelGroup style="display:block; text-align:center">
 					<p:growl id="mainGrowl" showDetail="true" sticky="true" />
 					<!--          -->
 					<p:panelGrid columns="2">
@@ -131,7 +133,7 @@
 
 						<h:outputText value="Izmena:" />
 						<h:panelGroup>
-							<p:selectOneMenu id="inputIzmena" 
+							<p:selectOneMenu id="inputIzmena"
 								value="#{porociloCtrl.selected.izmena}" required="true"
 								requiredMessage="Izberi izmeno!">
 								<f:selectItem itemLabel="" noSelectionOption="true"
@@ -184,21 +186,60 @@
 						</h:panelGroup>
 
 					</p:panelGrid>
+				</h:panelGroup>
+			</h:form>
 
-					<!--  <p:calendar id="selectBeginDate" value="" readOnlyInputText="true"
-						navigator="true" pattern="dd.MM.yyyy HH:mm:ss" locale="sl" /> -->
-					<p:commandButton ajax="false" value="Shrani" icon="ui-icon-disk"
-						action="#{porociloCtrl.create()}" />
+			<br />
+			<h:form id="aktivnostForm">
+				<p:dataTable id="aktivnostiDT" var="akt" editable="false"
+					style="width:100%;"
+					emptyMessage="ni vnešenih aktivnosti za dnevno poročilo"
+					value="#{porociloCtrl.selected.aktivnosti}">
+
+					<p:column headerText="aktivnost" style="width: 90px;">
+
+						<h:outputText value="#{akt.aktivnost}" />
+					</p:column>
+					<p:column headerText="čas od" style="width: 90px;">
+						<h:outputText value="#{akt.datumOd}">
+							<f:convertDateTime pattern="dd.MM.yyyy HH:mm" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="čas do" style="width: 90px;">
+						<h:outputText value="#{akt.datumDo}">
+							<f:convertDateTime pattern="dd.MM.yyyy HH:mm" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="mesto dogodka" style="width:90px;">
+						<h:outputText value="#{akt.mestoDogodka}" />
+					</p:column>
+					<p:column headerText="zaznamek" style="width:250px;">
+						<p:inputTextarea value="#{akt.zaznamek}" disabled="true"
+							autoResize="true"
+							style="overflow: hidden; overflow-wrap: break-word; resize: none;" />
+					</p:column>
+					<p:column style="width: 30px">
+						<p:commandButton update="@form" icon="fa fa-trash"
+							action="#{porociloCtrl.removeAktivnost(akt)}" process="@this"
+							title="briši">
+						</p:commandButton>
+					</p:column>
+
+				</p:dataTable>
+
+				<p:commandButton icon="fa fa-search" value="Dodaj novo aktivnost"
+					ajax="true" onclick="PF('dialogAktivnost').show();"
+					title="Dodaj aktivnost" />
+				<br />
+				<br />
+			</h:form>
 
 
-				</h:form>
+			<h:form id="submitForm">
+				<p:commandButton ajax="false" value="Shrani" icon="ui-icon-disk"
+					onclick="processFormUser();"/>
+			</h:form>
 
-				<p:commandButton icon="fa fa-search"
-					onclick="PF('dialogAktivnost').show();" title="dodaj aktivnost" />
-			</h:panelGroup>
-		</div>
-		<div class="columnRight">
-			<p></p>
 		</div>
 	</div>
 

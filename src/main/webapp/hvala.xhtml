@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<f:facet name="first">
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<link href="./resources/css/screen.css" rel="stylesheet"
+			type="text/css" />
+
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+	</f:facet>
+	<script type="text/javascript">
+    //<![CDATA[
+    function dateTemplateFunc(date) {
+        return '<span style="background-color:' + ((date.day < 21 && date.day > 10) ? '#81C784' : 'inherit') + ';border-radius:50%;padding: .25em;width: 1.75em; height:1.75em; display:block;">' + date.day + '</span>';
+    }
+    //]]>
+</script>
+
+</h:head>
+<h:body>
+
+	
+
+
+	<div class="row">
+		<div class="columnLeft">
+			<div class="row">
+				<div>
+					<h:graphicImage value="resources/skupina_hse.gif" />
+				</div>
+				<div>Služba za korporativno varnost skupine HSE</div>
+				<div>
+					<h:graphicImage value="resources/htz.gif" />
+				</div>
+			</div>
+		</div>
+		<div class="columnCenter">
+
+			<h1>Poročilo je shranjeno!</h1>
+			
+		</div>
+	</div>
+
+</h:body>
+</html>
+

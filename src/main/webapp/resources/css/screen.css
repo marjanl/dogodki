@@ -158,12 +158,18 @@ body{
 
 .columnCenter{
   float: left;
-  width: 600px;
+  width:100%;
+  max-width: 800px;
+  margin: 0px auto;	
+ /* 
+  width: 800px;
+  margin-left: auto;
+  margin-right: auto;*/
 }
 
 .columnRight{
   float: left;
-  width: 250px;
+  width: 100px;
 }
 
 /* Clear floats after the columns */
