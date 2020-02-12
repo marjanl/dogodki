@@ -10,7 +10,6 @@ import javax.faces.convert.ConverterException;
 import javax.faces.convert.FacesConverter;
 import javax.inject.Inject;
 
-import fr.ab.kazsws.refferenceControllers.UninttabController;
 import si.hse.varnost.controllers.OstaloController;
 import si.hse.varnost.controllers.PorociloController;
 import si.hse.varnost.ejb.OstaloEjb;
@@ -29,7 +28,7 @@ public class OstaloConverter implements Converter , Serializable {
 	        return null;
 	    }
 	    try {
-	    	PorociloController ctrl = context.getApplication().evaluateExpressionGet(context, "#{porociloCtrl}", PorociloController.class);
+	    	PorociloController ctrl = (PorociloController) context.getApplication().evaluateExpressionGet(context, "#{porociloCtrl}", PorociloController.class);
 	    	for(Ostalo o : ctrl.getVsiOstalo()) {
 	    		if(o.getOpis().equals(submittedValue)) {
 	    			return o;

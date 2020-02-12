@@ -35,7 +35,7 @@
 
 .layout-left {
 	float: left;
-	width: 250px;
+	width: 150px;
 	padding: 5px;
 }
 
@@ -77,8 +77,8 @@ body {
 
 #content {
 	min-height: 320px;
-	font-size: 120%;
-	width: 720px;
+	font-size: 100%;
+	width: auto;
 }
 
 #footer {
@@ -155,30 +155,20 @@ body {
 	margin-bottom: 12px;
 }
 
-.column {
-	float: left;
-	width: 33.33%;
-}
-
 .columnLeft {
 	float: left;
-	width: 250px;
+	width: 150px;
 }
 
 .columnCenter {
 	float: left;
 	width: 100%;
-	max-width: 800px;
-	margin: 0px auto;
+	max-width: 900px;
+	margin-left: width: 150px;
 	/* 
   width: 800px;
   margin-left: auto;
   margin-right: auto;*/
-}
-
-.columnRight {
-	float: left;
-	width: 100px;
 }
 
 /* Clear floats after the columns */

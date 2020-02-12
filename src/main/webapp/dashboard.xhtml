@@ -15,8 +15,8 @@
 
 		<h1>Pregled vseh poročil</h1>
 		<h:form>
-			<p:dataTable id="pregledDt" paginator="true" rows="5"
-				rowsPerPageTemplate="5,10,15,25,50,100"
+			<p:dataTable id="pregledDt" paginator="true" rows="5" 
+				style="width: 100%;" rowsPerPageTemplate="5,10,15,25,50,100"
 				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 				value="#{pregledCtrl.porocila}" var="n" widgetvar="pregledDtVar"
 				selectionMode="single" selection="#{porociloCtrl.selected}"
@@ -47,6 +47,14 @@
 					sortBy="#{n.izmenovodja}" filterMatchMode="contains">
 					<h:outputText value="#{n.izmenovodja}" />
 				</p:column>
+				<p:column  style="width: 35px;">
+					<p:commandButton update="@form" icon="ui-icon-circle-arrow-s" 
+						action="#{porociloCtrl.pdf(n)}" process="@this" title="PDF">
+					</p:commandButton>
+				</p:column>
+
+
+
 			</p:dataTable>
 		</h:form>
 	</ui:define>

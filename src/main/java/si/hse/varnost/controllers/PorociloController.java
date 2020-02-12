@@ -91,6 +91,10 @@ public class PorociloController implements Serializable {
 		datumDo = null;
 		zaznamek = new String();
 	}
+	
+	public void pdf(Porocilo porocilo) {
+		return;
+	}
 
 	public List<Ostalo> getAktivnosti() {
 		return aktivnosti;
