@@ -30,6 +30,10 @@ public class PregledController implements Serializable {
 		porocila = ejb.findAll();
 	}
 	
+	public void pdf(Porocilo porocilo) {
+		return;
+	}
+	
 	public List<Porocilo> getPorocila() {
 		return porocila;
 	}
@@ -45,5 +49,6 @@ public class PregledController implements Serializable {
 	public void setSelected(Porocilo selected) {
 		this.selected = selected;
 	} 
+	
 	
 }
