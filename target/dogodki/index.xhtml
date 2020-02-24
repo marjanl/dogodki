@@ -1,37 +1,243 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"   
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      >
-    <h:head>
-    	<h:outputStylesheet library="css" name="table-style.css"  />
-    </h:head>
-    <h:body>
-    	
-    	<h1>JSF 2 dataTable example</h1>
-    	
-    		<h:dataTable value="#{varCtrl.list}" var="o"
-    			styleClass="order-table"
-    			headerClass="order-table-header"
-    			rowClasses="order-table-odd-row,order-table-even-row"
-    		>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<f:facet name="first">
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<link href="./resources/css/screen.css" rel="stylesheet"
+			type="text/css" />
 
-    			<h:column>
-    				<!-- column header -->
-    				<f:facet name="header">Order No</f:facet>
-    				<!-- row record -->
-    				#{o.id}
-    			</h:column>
-    			
-    			<h:column>
-    				<f:facet name="header">Product Name</f:facet>
-    				#{o.ime}
-    			</h:column>
-    			
-    		</h:dataTable>
-    		
-    </h:body>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+	</f:facet>
+	<script type="text/javascript">
+    //<![CDATA[
+    function dateTemplateFunc(date) {
+        return '<span style="background-color:' + ((date.day < 21 && date.day > 10) ? '#81C784' : 'inherit') + ';border-radius:50%;padding: .25em;width: 1.75em; height:1.75em; display:block;">' + date.day + '</span>';
+    }
+    //]]>
+</script>
+
+</h:head>
+<h:body>
+
+	<p:dialog id="dialogAktivnost" header="Dodaj aktivnost"
+		widgetVar="dialogAktivnost" modal="true" showEffect="fade"
+		hideEffect="fade" position="top center" resizable="true"
+		style="position:fixed; z-index: 9999;" closeOnEscape="true"
+		closable="true" height="480px" width="500px">
+		<h:form id="aktivnostEditForm">
+			<h:panelGroup rendered="#{porociloCtrl.selected != null}"
+				style="width: 110px;">
+				<p:panelGrid columns="2">
+					<label>Aktivnost:</label>
+					<h:panelGroup>
+						<p:selectOneMenu id="inputAktivnost" converter="OstaloConverter"
+							value="#{porociloCtrl.aktivnost}" required="true"
+							requiredMessage="Izberi aktivnost">
+							<f:selectItem itemLabel="" noSelectionOption="true"
+								itemDisabled="true" />
+							<f:selectItems value="#{porociloCtrl.aktivnosti}" var="v"
+								itemValue="#{v.opis}" itemLabel="#{v.opis}" />
+						</p:selectOneMenu>
+						<p:message for="inputAktivnost" />
+					</h:panelGroup>
+				</p:panelGrid>
+
+				<p:panelGrid columns="2">
+					<label>Čas izvedbe aktivnosti od:</label>
+					<h:panelGroup>
+						<p:calendar id="inputDatumOd" value="#{porociloCtrl.datumOd}"
+							readOnlyInputText="true" required="true"
+							requiredMessage="vnesi od" navigator="true"
+							pattern="dd.MM.yyyy HH:mm" locale="sl" />
+						<p:message for="inputDatumOd" />
+					</h:panelGroup>
+					<label>do:</label>
+					<h:panelGroup>
+						<p:calendar id="inputDatumDo" value="#{porociloCtrl.datumDo}"
+							readOnlyInputText="true" required="true"
+							requiredMessage="vnesi od" navigator="true"
+							pattern="dd.MM.yyyy HH:mm" locale="sl" />
+						<p:message for="inputDatumDo" />
+					</h:panelGroup>
+				</p:panelGrid>
+
+				<p:panelGrid columns="2">
+					<label>Mesto dogodka:</label>
+					<h:panelGroup>
+						<p:selectOneMenu id="inputMestoDogodka"
+							converter="OstaloConverter" value="#{porociloCtrl.mestoDogodka}"
+							required="true" requiredMessage="Izberi mesto dogodka">
+							<f:selectItem itemLabel="" noSelectionOption="true"
+								itemDisabled="true" />
+							<f:selectItems value="#{porociloCtrl.mesta}" var="v"
+								itemValue="#{v.opis}" itemLabel="#{v.opis}" />
+						</p:selectOneMenu>
+						<p:message for="inputMestoDogodka" />
+					</h:panelGroup>
+				</p:panelGrid>
+
+				<p:panelGrid columns="1">
+					<label>Zaznamek:</label>
+					<p:inputTextarea value="#{porociloCtrl.zaznamek}" rows="6"
+						cols="33" />
+				</p:panelGrid>
+				<p:panelGrid columns="2">
+					<p:commandButton ajax="false" value="Shrani" icon="ui-icon-disk"
+						action="#{porociloCtrl.addAktivnost()}"
+						update=":porociloForm:aktivnostiDT" process="@form" />
+					<p:commandButton value="prekliči" title="prekliči"
+						action="#{porociloCtrl.cancelAktivnost}"
+						onclick="PF('dialogAktivnost').hide();" />
+				</p:panelGrid>
+
+			</h:panelGroup>
+		</h:form>
+	</p:dialog>
+
+
+	<div class="row">
+		<div class="columnLeft">
+			<div class="row">
+				<div>
+					<h:graphicImage value="resources/skupina_hse_150.gif" />
+				</div>
+				
+				<div>
+					<h:graphicImage value="resources/htz_150.gif" />
+				</div>
+				<div style="margin-left: 10px; margin-right: 10px">Služba za korporativno varnost skupine HSE</div>
+			</div>
+		</div>
+		<div class="columnCenter">
+
+			<h1>Dnevno poročilo varnostnika</h1>
+			<h:form id="porociloForm">
+				<h:panelGroup style="display:block; text-align:center">
+					<p:growl id="mainGrowl" showDetail="true" sticky="true" />
+					<!--          -->
+					<p:panelGrid columns="2">
+						<h:outputText value="Datum:" />
+						<h:panelGroup>
+							<p:calendar id="inputStartDate" binding="#{startDate}"
+								value="#{porociloCtrl.selected.datum}" pattern="dd.MM.yyyy"
+								required="true" requiredMessage="izberi datum" locale="sl" />
+							<p:message for="inputStartDate" />
+						</h:panelGroup>
+
+						<h:outputText value="Izmena:" />
+						<h:panelGroup>
+							<p:selectOneMenu id="inputIzmena"
+								value="#{porociloCtrl.selected.izmena}" required="true"
+								requiredMessage="Izberi izmeno!">
+								<f:selectItem itemLabel="" noSelectionOption="true"
+									itemDisabled="true" />
+								<f:selectItems value="#{porociloCtrl.izmene}" var="v"
+									itemValue="#{v.opis}" itemLabel="#{v.opis}" />
+							</p:selectOneMenu>
+							<p:message for="inputIzmena" />
+						</h:panelGroup>
+
+						<h:outputText value="Varnostno mesto:" />
+						<h:panelGroup>
+							<p:selectOneMenu id="inputVarnostnoMesto"
+								value="#{porociloCtrl.selected.varnostnoMesto}" required="true"
+								requiredMessage="Izberi varnostno mesto">
+								<f:selectItem itemLabel="" noSelectionOption="true"
+									itemDisabled="true" />
+								<f:selectItems value="#{porociloCtrl.vms}" var="v"
+									itemValue="#{v.opis}" itemLabel="#{v.opis}" />
+							</p:selectOneMenu>
+							<p:message for="inputVarnostnoMesto" />
+						</h:panelGroup>
+
+					</p:panelGrid>
+					<p:panelGrid columns="4">
+						<h:outputText value="Varnostnik:" />
+						<h:panelGroup>
+							<p:selectOneMenu id="inputVarnostnik"
+								value="#{porociloCtrl.selected.varnostnik}" required="true"
+								requiredMessage="Izberi varnostnika!">
+								<f:selectItem itemLabel="" noSelectionOption="true"
+									itemDisabled="true" />
+								<f:selectItems value="#{varCtrl.list}" var="varnostnik"
+									itemValue="#{varnostnik.ime}" itemLabel="#{varnostnik.ime}" />
+							</p:selectOneMenu>
+							<p:message for="inputVarnostnik" />
+						</h:panelGroup>
+
+						<h:outputText value="Izmenovodja:" />
+						<h:panelGroup id="izmenovodjaGroup">
+							<p:selectOneMenu id="inputIzmenovodja"
+								value="#{porociloCtrl.selected.izmenovodja}" required="true"
+								requiredMessage="Izberi izmenovodjo!">
+								<f:selectItem itemLabel="" noSelectionOption="true"
+									itemDisabled="true" />
+								<f:selectItems value="#{izmenovodjaCtrl.list}" var="izmenovodja"
+									itemValue="#{izmenovodja.ime}" itemLabel="#{izmenovodja.ime}" />
+							</p:selectOneMenu>
+							<p:message for="inputIzmenovodja" />
+						</h:panelGroup>
+
+					</p:panelGrid>
+				</h:panelGroup>
+
+			<br />
+				<p:dataTable id="aktivnostiDT" var="akt" editable="false"
+					style="width:100%;"
+					emptyMessage="ni vnešenih aktivnosti za dnevno poročilo"
+					value="#{porociloCtrl.selected.aktivnosti}">
+
+					<p:column headerText="aktivnost" style="width: 90px;">
+
+						<h:outputText value="#{akt.aktivnost}" />
+					</p:column>
+					<p:column headerText="čas od" style="width: 90px;">
+						<h:outputText value="#{akt.datumOd}">
+							<f:convertDateTime pattern="dd.MM.yyyy HH:mm" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="čas do" style="width: 90px;">
+						<h:outputText value="#{akt.datumDo}">
+							<f:convertDateTime pattern="dd.MM.yyyy HH:mm" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="mesto dogodka" style="width:90px;">
+						<h:outputText value="#{akt.mestoDogodka}" />
+					</p:column>
+					<p:column headerText="zaznamek" style="width:250px;">
+						<p:inputTextarea value="#{akt.zaznamek}" disabled="true"
+							autoResize="true"
+							style="overflow: hidden; overflow-wrap: break-word; resize: none;" />
+					</p:column>
+					<p:column style="width: 30px">
+						<p:commandButton update="@form" icon="fa fa-trash"
+							action="#{porociloCtrl.removeAktivnost(akt)}" process="@this"
+							title="briši">
+						</p:commandButton>
+					</p:column>
+
+				</p:dataTable>
+
+				<p:commandButton icon="fa fa-search" value="Dodaj novo aktivnost"
+					ajax="true" onclick="PF('dialogAktivnost').show();"
+					title="Dodaj aktivnost" />
+				<br />
+				<br />
+
+				<p:commandButton ajax="false" value="Shrani" icon="ui-icon-disk"
+					 process="@form" update="@form" action="#{porociloCtrl.create()}"/>
+			</h:form>
+
+		</div>
+	</div>
+
+</h:body>
 </html>
+

@@ -48,8 +48,8 @@
 					<h:outputText value="#{n.izmenovodja}" />
 				</p:column>
 				<p:column  style="width: 35px;">
-					<p:commandButton update="@form" icon="ui-icon-circle-arrow-s" 
-						action="#{porociloCtrl.pdf(n)}" process="@this" title="PDF">
+					<p:commandButton update="@form" icon="ui-icon-circle-arrow-s" ajax="false"
+						action="#{pregledCtrl.pdf(n)}" process="@this" title="PDF">
 					</p:commandButton>
 				</p:column>
 

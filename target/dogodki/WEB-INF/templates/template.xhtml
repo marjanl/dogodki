@@ -22,13 +22,16 @@
 
 <h:body>
 	<div>
-		<div id="left" class="layout-left body">
+		<div id="left" class="layout-left">
 			<ui:insert name="left">
-				<h3>Urejanje</h3>
-				<p:menu>
-					<p:menuitem value="Uredi varnostnike" url="varnostnik.xhtml"
+				<h3>Menu</h3>
+				<p:menu style="width: 150px">
+					<p:menuitem value="Varnostniki" url="varnostnik.xhtml" style="width: 120px;"
 						icon="ui-icon-person" />
-					<p:menuitem value="Tag Management" url="menu.jsf" icon="tag-icon" />
+					<p:menuitem value="Izmenovodje" url="izmenovodja.xhtml" style="width: 120px;"
+						icon="ui-icon-grip-diagonal-se" />
+					<p:menuitem value="Ostalo" url="ostalo.xhtml" icon="tag-icon" style="width: 120px;"/>
+					<p:menuitem value="Pregled" url="dashboard.xhtml" icon="ui-icon-zoomin" style="width: 120px;"/>
 				</p:menu>
 			</ui:insert>
 
