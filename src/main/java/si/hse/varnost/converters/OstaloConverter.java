@@ -10,7 +10,6 @@ import javax.faces.convert.ConverterException;
 import javax.faces.convert.FacesConverter;
 import javax.inject.Inject;
 
-import si.hse.varnost.controllers.OstaloController;
 import si.hse.varnost.controllers.PorociloController;
 import si.hse.varnost.ejb.OstaloEjb;
 import si.hse.varnost.model.Ostalo;

@@ -1,9 +1,9 @@
 create table varnostnik (id integer, ime text);
 
-insert into varnostnik (id, ime) values (1,'Igor');
-insert into varnostnik (id, ime) values (2,'Tanja');
-insert into varnostnik (id, ime) values (3,'Mirko');
-insert into varnostnik (id, ime) values (4,'Polde');
+insert into varnostnik (id, ime) values (1,'Aleš Pisanec');
+insert into varnostnik (id, ime) values (2,'Aljoša Jančič');
+insert into varnostnik (id, ime) values (3,'Almir Menič');
+insert into varnostnik (id, ime) values (4,'Baškim Hajdari');
 
 create table izmenovodja(id INTEGER PRIMARY KEY AUTOINCREMENT,ime TEXT);
 insert into izmenovodja (ime) values ('Dejan Potočnik');

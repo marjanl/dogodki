@@ -30,10 +30,6 @@ public class Ostalo implements Serializable {
 	@Column(name = "vrsta")
     @Enumerated(EnumType.STRING)
 	private Vrsta vrsta;
-	
-	@Column(name="is_deleted")
-	private boolean deleted =false;
-	
 
 	public Ostalo() {
 		
@@ -62,14 +58,4 @@ public class Ostalo implements Serializable {
 	public void setVrsta(Vrsta vrsta) {
 		this.vrsta = vrsta;
 	}
-
-	public boolean isDeleted() {
-		return deleted;
-	}
-
-	public void setDeleted(boolean deleted) {
-		this.deleted = deleted;
-	}
-	
-	
 }
