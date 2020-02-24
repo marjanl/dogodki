@@ -50,7 +50,7 @@ body {
 	/*background-color:#EEE;*/
 	font-family: Verdana, Arial, Helvetica, "DejaVu Sans", sans-serif;
 	font-size: 100%;
-	line-height: 1.5;
+	line-height: 1;
 }
 
 .fa {
@@ -77,7 +77,7 @@ body {
 
 #content {
 	min-height: 320px;
-	font-size: 100%;
+	font-size: 80%;
 	width: auto;
 }
 

@@ -26,7 +26,7 @@ public class VarnostnikEjb {
 
 		List<Varnostnik> results = new ArrayList<Varnostnik>();
 		try {
-			results = em.createQuery("SELECT v FROM Varnostnik v WHERE v.deleted=FALSE").getResultList();
+			results = em.createQuery("SELECT v FROM Varnostnik v ").getResultList();
 		} catch (Exception e) {
 			System.err.println("Exception pri VarnostnikEjb:" + e.getLocalizedMessage());
 			e.printStackTrace();
@@ -53,8 +53,7 @@ public class VarnostnikEjb {
 	public void deleteVarnostnik(Varnostnik v) throws Exception {
 		EntityManager em = tools.getEntityManager();
 		try {
-			v.setDeleted(true);
-			em.merge(v);
+			em.remove(em.merge(v));
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;

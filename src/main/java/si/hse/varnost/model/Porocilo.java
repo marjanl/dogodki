@@ -47,9 +47,6 @@ public class Porocilo implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date saveTime;
 	
-	@Column(name="is_deleted")
-	private boolean deleted =false;
-	
 	public Porocilo() {}
 
     @ElementCollection(targetClass=Aktivnost.class)
@@ -136,13 +133,5 @@ public class Porocilo implements Serializable {
 
 	public void setAktivnosti(Set<Aktivnost> aktivnosti) {
 		this.aktivnosti = aktivnosti;
-	}
-	
-	public boolean isDeleted() {
-		return deleted;
-	}
-
-	public void setDeleted(boolean deleted) {
-		this.deleted = deleted;
 	}
 }

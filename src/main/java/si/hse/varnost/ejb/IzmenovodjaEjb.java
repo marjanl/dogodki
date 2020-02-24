@@ -26,7 +26,7 @@ public class IzmenovodjaEjb {
 
 		List<Izmenovodja> results = new ArrayList<Izmenovodja>();
 		try {
-			results = em.createQuery("SELECT v FROM Izmenovodja v WHERE v.deleted=FALSE").getResultList();
+			results = em.createQuery("SELECT v FROM Izmenovodja v ").getResultList();
 		} catch (Exception e) {
 			System.err.println("Exception pri IzmenovodjaEjb:" + e.getLocalizedMessage());
 			e.printStackTrace();
@@ -53,8 +53,7 @@ public class IzmenovodjaEjb {
 	public void deleteIzmenovodja(Izmenovodja v) throws Exception {
 		EntityManager em = tools.getEntityManager();
 		try {
-			v.setDeleted(true);
-			em.merge(v);
+			em.remove(em.merge(v));
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;

@@ -39,7 +39,7 @@ public class PorociloEjb {
 
 		List<Porocilo> results = new ArrayList<>();
 		try {
-			results = em.createQuery("SELECT v FROM Porocilo v WHERE v.deleted=FALSE ORDER BY v.id DESC").getResultList();
+			results = em.createQuery("SELECT v FROM Porocilo v ORDER BY v.id DESC").getResultList();
 		} catch (Exception e) {
 			System.err.println("Exception pri PorociloEjb:" + e.getLocalizedMessage());
 			e.printStackTrace();

@@ -13,7 +13,7 @@
 	<ui:define name="content">
 
 
-		<h1>Pregled vseh poročil</h1>
+		<h1>Enostavni pregled</h1>
 		<h:form>
 			<p:dataTable id="pregledDt" paginator="true" rows="5"
 				style="width: 100%;" rowsPerPageTemplate="5,10,15,25,50,100"
@@ -21,12 +21,12 @@
 				value="#{pregledCtrl.porocila}" var="n" widgetvar="pregledDtVar"
 				selectionMode="single" selection="#{porociloCtrl.selected}"
 				rowKey="#{n.id}">
-				<p:column style="width: 10%;" headerText="Čas oddaje" sortBy="#{n.saveTime}">
+				<p:column style="width: 15%;" headerText="Čas oddaje" sortBy="#{n.saveTime}">
 					<h:outputText value="#{n.saveTime}">
 						<f:convertDateTime pattern="dd.MM.yyyy HH:mm:ss" />
 					</h:outputText>
 				</p:column>
-				<p:column style="width: 10%;" headerText="Datum" sortBy="#{n.datum}">
+				<p:column style="width: 15%;" headerText="Datum" sortBy="#{n.datum}">
 					<h:outputText value="#{n.datum}">
 						<f:convertDateTime pattern="dd.MM.yyyy HH:mm:ss" />
 					</h:outputText>
@@ -35,7 +35,7 @@
 					sortBy="#{n.izmena}" filterMatchMode="contains">
 					<h:outputText value="#{n.izmena}" />
 				</p:column>
-				<p:column style="width: 10%;" headerText="VM" filterBy="#{n.varnostnoMesto}"
+				<p:column style="width: 15%;" headerText="VM" filterBy="#{n.varnostnoMesto}"
 					sortBy="#{n.varnostnoMesto}" filterMatchMode="contains">
 					<h:outputText value="#{n.varnostnoMesto}" />
 				</p:column>
@@ -47,16 +47,6 @@
 					sortBy="#{n.izmenovodja}" filterMatchMode="contains">
 					<h:outputText value="#{n.izmenovodja}" />
 				</p:column>
-
-				<p:column style="width: 30%;" headerText="Aktivnost">
-					<p:dataTable id="aktivnostDt" value="#{n.aktivnosti}" var="a" emptyMessage="Ni zapisov">
-						<p:column>
-							<h:outputText value="#{a.mestoDogodka} -> #{a.zaznamek} " />
-							<br />
-						</p:column>
-					</p:dataTable>
-				</p:column>
-
 				<p:column style="width: 5%;">
 					<p:commandButton update="@form" icon="ui-icon-circle-arrow-s"
 						ajax="false" action="#{pregledCtrl.pdf(n)}" process="@this"

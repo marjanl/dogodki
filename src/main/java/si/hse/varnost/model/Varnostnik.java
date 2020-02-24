@@ -25,9 +25,6 @@ public class Varnostnik implements Serializable {
 	
 	@Column(length = 100, nullable = false)
 	private String ime;
-	
-	@Column(name="is_deleted")
-	private boolean deleted =false;
 
 	public Varnostnik() {}
 	
@@ -52,12 +49,5 @@ public class Varnostnik implements Serializable {
 	public void setIme(String ime) {
 		this.ime = ime;
 	}
-	
-	public boolean isDeleted() {
-		return deleted;
-	}
 
-	public void setDeleted(boolean deleted) {
-		this.deleted = deleted;
-	}
 }
