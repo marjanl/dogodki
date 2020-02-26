@@ -1,0 +1,16 @@
+
+nastavitve za eclipselink:
+direktorij main mora biti skopiran v mapo
+/wildfly/modules/system/layers/base/org/eclipse/persistence/
+
+
+nastavitve standalone.xml za data source in da posluša na vseh interfacih
+wildfly/standalone/configuration/
+mogoče je kle potrebno popravit pot do hse.db (sqlite) fajla
+poglej si datasource pravi
+<datasource jndi-name="java:/hseDS" pool-name="SqlitePool">
+    <connection-url>jdbc:sqlite:/home/ml/kastor/work/git/Igor/hse.db</connection-url>
+    <driver>sqlite</driver>
+</datasource>
+
+

@@ -405,9 +405,11 @@
             <inet-address value="${jboss.bind.address.management:127.0.0.1}"/>
         </interface>
         <interface name="public">
-            <inet-address value="${jboss.bind.address:127.0.0.1}"/>
+            <!-- <inet-address value="${jboss.bind.address:127.0.0.1}"/>  -->
+            <any-address/> 
         </interface>
     </interfaces>
+
 
     <socket-binding-group name="standard-sockets" default-interface="public" port-offset="${jboss.socket.binding.port-offset:0}">
         <socket-binding name="management-http" interface="management" port="${jboss.management.http.port:9990}"/>
@@ -422,11 +424,4 @@
         </outbound-socket-binding>
     </socket-binding-group>
 
-    <deployments>
-        <deployment name="dogodki.war" runtime-name="dogodki.war">
-            <content sha1="9d285eaf41a0dac9e3e50c552c75ce533832ffaa"/>
-        </deployment>
-    </deployments>
 </server>
-
-
