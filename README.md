@@ -10,10 +10,10 @@ Navodila po korakih:
 5. hse.db daš nekam kje ga vidi wildfly.
 6. skopiraš(mogoče najboljš samo datasource in ip/any) /additional/standalone.xml v /wildfly/standalone/configuration/standalone.xml
 7. skopiraš mapo /additinal/main /wildfly/modules/system/layers/base/org/eclipse/persistence/ ! To je za eclipseLink
-8. skopiraš sqlite-jdbc-3.25.2 v /wildfly/standalone/deployments/
+8. skopiraš https://repo1.maven.org/maven2/org/xerial/sqlite-jdbc/3.25.2/sqlite-jdbc-3.25.2.jar v /wildfly/standalone/deployments/
 9. skopiraš dogodki.war v /wildfly/standalone/deployments/
 10. zalaufaš wildfly...odpreš http://localhost:8080/dogodki/dashboard.xhtml ali http://localhost:8080/dogodki/
-
+11. greš na kavo :)
 
 
 ps.
