@@ -21,6 +21,9 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
+import org.primefaces.event.CloseEvent;
+import org.primefaces.event.MoveEvent;
+
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -28,6 +31,7 @@ import net.sf.jasperreports.engine.JasperPrint;
 import si.hse.varnost.ejb.OstaloEjb;
 import si.hse.varnost.ejb.PorociloEjb;
 import si.hse.varnost.model.Porocilo;
+import si.hse.varnost.model.Varnostnik;
 
 @ViewScoped
 @Named("pregledCtrl")
@@ -46,8 +50,37 @@ public class PregledController implements Serializable {
 
 	@PostConstruct
 	public void init() {
+		refresh();
+	}
+	
+	public void delete(Porocilo porocilo) {
+		try {
+			ejb.deletePorocilo(porocilo);
+			refresh();
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Poročilo izbrisano", ""));
+		} catch (Exception e) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Napaka pri brisanju", e.getLocalizedMessage()));
+			e.printStackTrace();
+		}
+	}
+	
+	private void refresh() {
 		porocila = ejb.findAll();
 	}
+	
+    public void handleClose(CloseEvent event) {
+        addMessage(event.getComponent().getId() + " closed", "So you don't like nature?");
+    }
+     
+    public void handleMove(MoveEvent event) {
+        addMessage(event.getComponent().getId() + " moved", "Left: " + event.getLeft() + ", Top: " + event.getTop());
+    }
+     
+    public void addMessage(String summary, String detail) {
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+	
 	
 	public void pdf(Porocilo porocilo) {
 		

@@ -53,10 +53,25 @@
 						title="PDF">
 					</p:commandButton>
 				</p:column>
+				
+				<p:column style="width: 5%;">
+					<p:commandButton title="Briši" icon="ui-icon-trash" 
+						actionListener="#{pregledCtrl.delete(n)}" update="@form">
+						<p:confirm header="Potrdi" message="Si prepričan da želiš izbrisati poročilo?"
+							icon="ui-icon-alert" />
+					</p:commandButton>
+					<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+						<p:commandButton value="Da" type="button"
+							styleClass="ui-confirmdialog-yes" icon="ui-icon-check" update="@form"/>
+						<p:commandButton value="Ne" type="button"
+							styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+					</p:confirmDialog>
+				</p:column>				
 
 
 
 			</p:dataTable>
 		</h:form>
+
 	</ui:define>
 </ui:composition>

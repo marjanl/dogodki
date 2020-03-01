@@ -14,14 +14,16 @@
 
 
 		<h1>Pregled vseh poročil</h1>
-		<h:form>
+		<h:form id="pregledForm">
+			<p:growl id="message" showDetail="true" />
 			<p:dataTable id="pregledDt" paginator="true" rows="5"
 				style="width: 100%;" rowsPerPageTemplate="5,10,15,25,50,100"
 				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 				value="#{pregledCtrl.porocila}" var="n" widgetvar="pregledDtVar"
 				selectionMode="single" selection="#{porociloCtrl.selected}"
 				rowKey="#{n.id}">
-				<p:column style="width: 10%;" headerText="Čas oddaje" sortBy="#{n.saveTime}">
+				<p:column style="width: 10%;" headerText="Čas oddaje"
+					sortBy="#{n.saveTime}">
 					<h:outputText value="#{n.saveTime}">
 						<f:convertDateTime pattern="dd.MM.yyyy HH:mm:ss" />
 					</h:outputText>
@@ -31,25 +33,30 @@
 						<f:convertDateTime pattern="dd.MM.yyyy HH:mm:ss" />
 					</h:outputText>
 				</p:column>
-				<p:column style="width: 10%;" headerText="Izmena" filterBy="#{n.izmena}"
-					sortBy="#{n.izmena}" filterMatchMode="contains">
+				<p:column style="width: 10%;" headerText="Izmena"
+					filterBy="#{n.izmena}" sortBy="#{n.izmena}"
+					filterMatchMode="contains">
 					<h:outputText value="#{n.izmena}" />
 				</p:column>
-				<p:column style="width: 10%;" headerText="VM" filterBy="#{n.varnostnoMesto}"
-					sortBy="#{n.varnostnoMesto}" filterMatchMode="contains">
+				<p:column style="width: 10%;" headerText="VM"
+					filterBy="#{n.varnostnoMesto}" sortBy="#{n.varnostnoMesto}"
+					filterMatchMode="contains">
 					<h:outputText value="#{n.varnostnoMesto}" />
 				</p:column>
-				<p:column style="width: 20%;" headerText="Varnostnik" filterBy="#{n.varnostnik}"
-					sortBy="#{n.varnostnik}" filterMatchMode="contains">
+				<p:column style="width: 20%;" headerText="Varnostnik"
+					filterBy="#{n.varnostnik}" sortBy="#{n.varnostnik}"
+					filterMatchMode="contains">
 					<h:outputText value="#{n.varnostnik}" />
 				</p:column>
-				<p:column style="width: 20%;" headerText="Izmenovodja" filterBy="#{n.izmenovodja}"
-					sortBy="#{n.izmenovodja}" filterMatchMode="contains">
+				<p:column style="width: 20%;" headerText="Izmenovodja"
+					filterBy="#{n.izmenovodja}" sortBy="#{n.izmenovodja}"
+					filterMatchMode="contains">
 					<h:outputText value="#{n.izmenovodja}" />
 				</p:column>
 
 				<p:column style="width: 30%;" headerText="Aktivnost">
-					<p:dataTable id="aktivnostDt" value="#{n.aktivnosti}" var="a" emptyMessage="Ni zapisov">
+					<p:dataTable id="aktivnostDt" value="#{n.aktivnosti}" var="a"
+						emptyMessage="Ni zapisov">
 						<p:column>
 							<h:outputText value="#{a.mestoDogodka} -> #{a.zaznamek} " />
 							<br />
@@ -63,10 +70,23 @@
 						title="PDF">
 					</p:commandButton>
 				</p:column>
-
-
-
+				
+				<p:column style="width: 5%;">
+					<p:commandButton title="Briši" icon="ui-icon-trash" 
+						actionListener="#{pregledCtrl.delete(n)}" update="@form">
+						<p:confirm header="Potrdi" message="Si prepričan da želiš izbrisati poročilo?"
+							icon="ui-icon-alert" />
+					</p:commandButton>
+					<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+						<p:commandButton value="Da" type="button"
+							styleClass="ui-confirmdialog-yes" icon="ui-icon-check" update="@form"/>
+						<p:commandButton value="Ne" type="button"
+							styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+					</p:confirmDialog>
+				</p:column>
+				
 			</p:dataTable>
 		</h:form>
+		
 	</ui:define>
 </ui:composition>

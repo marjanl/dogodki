@@ -11,6 +11,7 @@ import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
 import si.hse.varnost.model.Porocilo;
+import si.hse.varnost.model.Varnostnik;
 
 @Stateless
 @Transactional(Transactional.TxType.REQUIRES_NEW)
@@ -20,14 +21,11 @@ public class PorociloEjb {
 	@Inject
 	private Tools tools;
 	
-	public void create(Porocilo porocilo) throws Exception {
+	public void create(Porocilo porocilo) {
 		EntityManager em = tools.getEntityManager();
 		try {
 			porocilo.setSaveTime(new Date());
 			em.merge(porocilo);
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
 		} finally {
 			em.close();
 		}
@@ -48,5 +46,15 @@ public class PorociloEjb {
 		}
 
 		return results;
+	}
+
+	public void deletePorocilo(Porocilo p) {
+		EntityManager em = tools.getEntityManager();
+		try {
+			em.remove(em.merge(p));
+		} finally {
+			em.close();
+		}
+		
 	}
 }
