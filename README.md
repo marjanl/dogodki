@@ -2,6 +2,8 @@
 
 hse.db je file z sqlite bazo. Fino bi bilo to dnevno/tedensko backapirat!
 
+vgdlfgbdfbglfbl
+
 Navodila po korakih:
 1. instaliraj wildfly
 2. instaliraj maven 
