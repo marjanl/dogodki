@@ -9,20 +9,12 @@
 	<version>1.0-SNAPSHOT</version>
 	<name>dogodki</name>
 
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<jboss.home>${env.JBOSS_HOME}</jboss.home>
-		<jboss.domain>default</jboss.domain>
-		<maven.compiler.source>1.8</maven.compiler.source>
-		<maven.compiler.target>1.8</maven.compiler.target>
-		<jasperreports.version>6.4.3</jasperreports.version>
-	</properties>
-
 	<repositories>
 		<repository>
 			<id>prime-repo</id>
 			<name>Prime Repo</name>
-			<url>http://repository.primefaces.org</url>
+			<url>https://repository.primefaces.org</url>
+			<layout>default</layout>
 		</repository>
 		<repository>
 			<id>Jasper Reports</id>
@@ -32,6 +24,16 @@
 			</snapshots>
 		</repository>
 	</repositories>
+
+	<properties>
+		<java.version>11</java.version>
+		<maven.compiler.target>${java.version}</maven.compiler.target>
+		<maven.compiler.source>${java.version}</maven.compiler.source>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<!--<jboss.home>${env.JBOSS_HOME}</jboss.home>-->
+		<jboss.domain>default</jboss.domain>
+		<jasperreports.version>6.20.0</jasperreports.version>
+	</properties>
 
 	<dependencies>
 		<dependency>
@@ -51,8 +53,8 @@
 		</dependency>
 		<dependency>
 			<groupId>org.primefaces.themes</groupId>
-			<artifactId>glass-x</artifactId>
-			<version>1.0.6</version>
+			<artifactId>all-themes</artifactId>
+			<version>1.0.10</version>
 		</dependency>
 
 		<dependency>
@@ -67,6 +69,11 @@
 			<version>1.0.0.Final</version>
 			<scope>provided</scope>
 			<type>pom</type>
+		</dependency>
+		<dependency>
+			<groupId>org.wildfly.plugins</groupId>
+			<artifactId>wildfly-maven-plugin</artifactId>
+			<version>3.0.2.Final</version>
 		</dependency>
 
 		<dependency>
@@ -148,7 +155,7 @@
 						<dependency>
 							<groupId>net.sf.jasperreports</groupId>
 							<artifactId>jasperreports-functions</artifactId>
-							<version>6.4.3</version>
+							<version>${jasperreports.version}</version>
 						</dependency>
 						<dependency>
 							<groupId>net.sf.jasperreports</groupId>
@@ -170,7 +177,7 @@
 
 		<finalName>dogodki</finalName>
 		<plugins>
-			<!-- Facilitates downloading source and javadoc in Eclipse -->
+			<!-- Facilitates downloading source and javadoc in Eclipse
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-eclipse-plugin</artifactId>
@@ -179,13 +186,11 @@
 					<wtpversion>2.0</wtpversion>
 					<downloadSources>true</downloadSources>
 					<downloadJavadocs>true</downloadJavadocs>
-					<!-- enforce Java 8 -->
-					<source>1.8</source>
-					<target>1.8</target>
+
+					<source>${java.version}</source>
+					<target>${java.version}</target>
 				</configuration>
-			</plugin>
-
-
+			</plugin>-->
 
 			<!-- JBoss AS plugin for command line deployment -->
 			<plugin>

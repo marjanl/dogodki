@@ -2,8 +2,6 @@
 
 hse.db je file z sqlite bazo. Fino bi bilo to dnevno/tedensko backapirat!
 
-vgdlfgbdfbglfbl
-
 Navodila po korakih:
 1. instaliraj wildfly
 2. instaliraj maven 
@@ -13,6 +11,7 @@ Navodila po korakih:
 6. skopiraš(mogoče najboljš samo datasource in ip/any) /additional/standalone.xml v /wildfly/standalone/configuration/standalone.xml
 7. skopiraš mapo /additinal/main /wildfly/modules/system/layers/base/org/eclipse/persistence/ ! To je za eclipseLink
 8. skopiraš https://repo1.maven.org/maven2/org/xerial/sqlite-jdbc/3.25.2/sqlite-jdbc-3.25.2.jar v /wildfly/standalone/deployments/
+    1. skopiraš mapo /additional/org-sqlite-main v /wildfly/modules/system/layers/base/org/sqlite/main ! To je za sqlite driver
 9. skopiraš dogodki.war v /wildfly/standalone/deployments/
 10. zalaufaš wildfly...odpreš http://localhost:8080/dogodki/dashboard.xhtml ali http://localhost:8080/dogodki/
 11. greš na kavo :)
@@ -27,3 +26,11 @@ poglej si datasource pravi
     <connection-url>jdbc:sqlite:/home/ml/kastor/work/git/Igor/hse.db</connection-url>
     <driver>sqlite</driver>
 </datasource>
+<drivers>
+    <driver name="sqlite" module="org.sqlite">
+       <driver-class>org.sqlite.JDBC</driver-class>
+    </driver>
+    <driver name="h2" module="com.h2database.h2">
+        <xa-datasource-class>org.h2.jdbcx.JdbcDataSource</xa-datasource-class>
+    </driver>
+</drivers>
