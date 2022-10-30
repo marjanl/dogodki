@@ -14,28 +14,28 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 	</f:facet>
-
 	<title>Dogodki - urejanje</title>
-
 </h:head>
-
 
 <h:body>
 	<div>
 		<div id="left" class="layout-left">
 			<ui:insert name="left">
 				<h3>Menu</h3>
-				<p:menu style="width: 150px">
-					<p:menuitem value="Novo" url="index.xhtml" style="width: 120px;"
-						icon="ui-icon-plus" />
-					<p:menuitem value="Varnostniki" url="varnostnik.xhtml" style="width: 120px;"
-						icon="ui-icon-person" />
-					<p:menuitem value="Izmenovodje" url="izmenovodja.xhtml" style="width: 120px;"
-						icon="ui-icon-grip-diagonal-se" />
-					<p:menuitem value="Ostalo" url="ostalo.xhtml" icon="tag-icon" style="width: 120px;"/>
-					<p:menuitem value="Pregled" url="dashboard.xhtml" icon="ui-icon-zoomin" style="width: 120px;"/>
-					<p:menuitem value="Enostavni" url="dashboard_short.xhtml" icon="ui-icon-zoomin" style="width: 120px;"/>
-				</p:menu>
+
+				<h:form id="menuForm">
+					<p:menu style="width: 150px">
+						<p:menuitem value="Novo" url="index.xhtml" style="width: 120px;"
+							icon="ui-icon-plus" />
+						<p:menuitem value="Varnostniki" url="varnostnik.xhtml" style="width: 120px;"
+							icon="ui-icon-person" />
+						<p:menuitem value="Izmenovodje" url="izmenovodja.xhtml" style="width: 120px;"
+							icon="ui-icon-grip-diagonal-se" />
+						<p:menuitem value="Ostalo" url="ostalo.xhtml" icon="tag-icon" style="width: 120px;"/>
+						<p:menuitem value="Pregled" url="dashboard.xhtml" icon="ui-icon-zoomin" style="width: 120px;"/>
+						<p:menuitem value="Enostavni" url="dashboard_short.xhtml" icon="ui-icon-zoomin" style="width: 120px;"/>
+					</p:menu>
+				</h:form>
 			</ui:insert>
 
 		</div>
@@ -43,13 +43,11 @@
 			<ui:insert name="content">Main Content</ui:insert>
 		</div>
 	</div>
-	
-			
-		<div style="text-align: center; position: fixed; height: 40px; bottom:0%; width:100%; opacity: 1;">
-			Idejna zasnova, izvedba in administracija: Igor Košak, SKV HSE
-		</div>
+
+	<div style="text-align: center; position: fixed; height: 40px; bottom:0%; width:100%; opacity: 1;">
+		Idejna zasnova, izvedba in administracija: Igor Košak, SKV HSE
+	</div>
 	
 </h:body>
-
 
 </html>

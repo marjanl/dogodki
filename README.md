@@ -34,3 +34,8 @@ poglej si datasource pravi
         <xa-datasource-class>org.h2.jdbcx.JdbcDataSource</xa-datasource-class>
     </driver>
 </drivers>
+
+
+
+Za debug so navodila na
+http://www.mastertheboss.com/jbossas/wildfly-8/how-to-debug-remotely-wildfly/
