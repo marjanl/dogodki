@@ -16,13 +16,6 @@
 			<url>https://repository.primefaces.org</url>
 			<layout>default</layout>
 		</repository>
-	<!--<repository>
-        <id>Jasper Reports</id>
-        <url>https://mvnrepository.com/artifact/net.sf.jasperreports/jasperreports</url>
-        <snapshots>
-            <enabled>false</enabled>
-        </snapshots>
-    </repository>-->
 	</repositories>
 
 	<properties>
@@ -49,7 +42,7 @@
 		<dependency>
 			<groupId>net.sf.jasperreports</groupId>
 			<artifactId>jasperreports-fonts</artifactId>
-			<version>6.0.0</version>
+			<version>${jasperreports.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.primefaces.themes</groupId>
@@ -75,13 +68,17 @@
 			<artifactId>wildfly-maven-plugin</artifactId>
 			<version>3.0.2.Final</version>
 		</dependency>
-
+		<dependency>
+			<groupId>org.wildfly</groupId>
+			<artifactId>jipijapa-eclipselink</artifactId>
+			<version>10.0.0.Final</version>
+			<scope>provided</scope>
+		</dependency>
 		<dependency>
 			<groupId>javax.faces</groupId>
 			<artifactId>javax.faces-api</artifactId>
 			<version>2.3</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.primefaces</groupId>
 			<artifactId>primefaces</artifactId>
@@ -111,18 +108,10 @@
 			<version>2.7.3</version>
 			<scope>provided</scope>
 		</dependency>
-		<!-- SQLite driver -->
 		<dependency>
 			<groupId>org.xerial</groupId>
 			<artifactId>sqlite-jdbc</artifactId>
 			<version>3.25.2</version>
-			<scope>provided</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.wildfly</groupId>
-			<artifactId>jipijapa-eclipselink</artifactId>
-			<version>10.0.0.Final</version>
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>
@@ -165,22 +154,6 @@
 
 		<finalName>dogodki</finalName>
 		<plugins>
-			<!-- Facilitates downloading source and javadoc in Eclipse
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-eclipse-plugin</artifactId>
-				<version>3.1</version>
-				<configuration>
-					<wtpversion>2.0</wtpversion>
-					<downloadSources>true</downloadSources>
-					<downloadJavadocs>true</downloadJavadocs>
-
-					<source>${java.version}</source>
-					<target>${java.version}</target>
-				</configuration>
-			</plugin>-->
-
-			<!-- JBoss AS plugin for command line deployment -->
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>jboss-maven-plugin</artifactId>
