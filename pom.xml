@@ -151,9 +151,16 @@
 				</plugin>
 			</plugins>
 		</pluginManagement>
-
-		<finalName>dogodki</finalName>
 		<plugins>
+
+			<plugin>
+				<groupId>org.wildfly.plugins</groupId>
+				<artifactId>wildfly-maven-plugin</artifactId>
+				<version>3.0.2.Final</version>
+				<configuration>
+					<filename>${project.build.finalName}.war</filename>
+				</configuration>
+			</plugin>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>jboss-maven-plugin</artifactId>
@@ -166,7 +173,8 @@
 					</fileNames>
 				</configuration>
 			</plugin>
-
 		</plugins>
+
+		<finalName>dogodki</finalName>
 	</build>
 </project>
