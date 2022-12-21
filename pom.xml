@@ -23,7 +23,6 @@
 		<maven.compiler.target>${java.version}</maven.compiler.target>
 		<maven.compiler.source>${java.version}</maven.compiler.source>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<!--<jboss.home>${env.JBOSS_HOME}</jboss.home>-->
 		<jboss.domain>default</jboss.domain>
 		<jasperreports.version>6.20.0</jasperreports.version>
 	</properties>
@@ -159,19 +158,17 @@
 				<version>3.0.2.Final</version>
 				<configuration>
 					<filename>${project.build.finalName}.war</filename>
+					<hostname>localhost</hostname>
+					<port>9990</port>
 				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>jboss-maven-plugin</artifactId>
-				<version>1.4.1</version>
-				<configuration>
-					<jbossHome>${jboss.home}</jbossHome>
-					<serverName>${jboss.domain}</serverName>
-					<fileNames>
-						<fileName>${project.build.directory}/${project.build.finalName}.war</fileName>
-					</fileNames>
-				</configuration>
+				<executions>
+					<execution>
+						<phase>install</phase>
+						<goals>
+							<goal>deploy</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 
